@@ -5,7 +5,7 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 2000f;
+    [SerializeField] private float moveSpeed = 5f;
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;

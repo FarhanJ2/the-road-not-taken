@@ -72,3 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /The Road Not Taken/Library
 /The Road Not Taken/Temp
+/The Road Not Taken/Logs
+.DS_Store
+The Road Not Taken/.DS_Store

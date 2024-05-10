@@ -43,6 +43,13 @@ public class PlayerManager : MonoBehaviour
 
     private void Move()
     {
-        rb.MovePosition(rb.position + movement * (moveSpeed * Time.deltaTime));
+        // legacy movement
+        // rb.MovePosition(rb.position + movement * (moveSpeed * Time.deltaTime));
+
+        // new smooth curve movement
+        Vector2 targetVelocity = movement * moveSpeed;
+        Vector2 currentVelocity = rb.velocity;
+        Vector2 smoothVelocity = Vector2.Lerp(currentVelocity, targetVelocity, 0.25f); // lerp from curr to targ by 0.25 to smooth out velocity
+        rb.velocity = smoothVelocity;
     }
 }

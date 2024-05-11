@@ -6,8 +6,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
     }
 
     private void FixedUpdate()

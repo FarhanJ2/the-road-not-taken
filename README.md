@@ -6,7 +6,7 @@ Welcome to The Road Not Taken game! This project is an interactive exploration i
 
 ## Accessing the Game
 
-The game is accessible on [https://farhaninator.me/the-road-not-taken/](here)!. Players can easily access and enjoy the game directly from their web browser.
+The game is accessible on [here](https://farhaninator.me/the-road-not-taken/)!. Players can easily access and enjoy the game directly from their web browser.
 
 > "Two roads diverged in a wood, and I—  
 > I took the one less traveled by,  
@@ -33,7 +33,7 @@ The game's concept draws inspiration from Robert Frost's iconic poem "The Road N
 
 ## How to Play
 
-1. **Visit the Website**: Access the game on [https://farhaninator.me/the-road-not-taken/](here).
+1. **Visit the Website**: Access the game on [here](https://farhaninator.me/the-road-not-taken/).
    
 2. **Start the Game**: Click on the game's start button to begin your journey.
 

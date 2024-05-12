@@ -63,7 +63,8 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Player hit something");
         if (col.gameObject.CompareTag("Enemy")) {
             Debug.Log("Player hit by enemy");
-            PlayerStats.TakeDamage(10);
+            
+            // PlayerStats.TakeDamage(10);
         }    
     }
 }

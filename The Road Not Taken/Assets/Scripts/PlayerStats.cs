@@ -8,11 +8,13 @@ public class PlayerStats : MonoBehaviour
 {
     public static int Health { get; private set; }
     public static int Hunger { get; private set; }
-    public static int Score { get; private set; }
+    public static int Score { get; set; }
     public static int MAX_HEALTH = 100;
     public static int MAX_HUNGER = 30;
 
     [SerializeField] private AudioSource deathGroan;
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioClip[] hitSounds;
     [SerializeField] private Vector3 spawnPoint;
 
     // events out!!!
@@ -25,8 +27,8 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
-    private void OnEnable(){}
-    private void OnDisable(){}
+    private void OnEnable() { }
+    private void OnDisable() { }
 
     private void Awake()
     {
@@ -37,11 +39,20 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Key down");
-            TakeDamage();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Debug.Log("Key down");
+        //     TakeDamage();
+        // }
+    }
+
+    private void Attack()
+    {
+        // attack player
+        if (PlayerManager.disabled)
+            return;
+
+
     }
 
     private void HungerManager()
@@ -68,20 +79,26 @@ public class PlayerStats : MonoBehaviour
         onScoreChange?.Invoke();
     }
 
-    public static void TakeDamage(int attackDamage = 10)
+    public void TakeDamage(int attackDamage = 10)
     {
         if (Health <= 0)
             return;
-        
+
+        if (hitSound != null && hitSounds.Length > 0)
+        {
+            hitSound.clip = hitSounds[UnityEngine.Random.Range(0, hitSounds.Length)];
+            hitSound.Play();
+        }
+
         Health -= attackDamage;
         Debug.Log(Health);
         onPlayerDamage?.Invoke();
 
-        // if (Health <= 0)
-        // {
-        //     Die();
-        //     Health = 0;
-        // }
+        if (Health <= 0)
+        {
+            Die();
+            Health = 0;
+        }
     }
 
     private void Die()

@@ -42,11 +42,11 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Debug.Log("Key down");
-        //     TakeDamage();
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Key down");
+            Heal(5);
+        }
     }
 
     private void Attack()
@@ -102,6 +102,15 @@ public class PlayerStats : MonoBehaviour
             Die();
             Health = 0;
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        Health += healAmount;
+        if (Health > MAX_HEALTH)
+            Health = MAX_HEALTH;
+
+        onPlayerDamage?.Invoke();
     }
 
     private void Die()

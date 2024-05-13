@@ -15,7 +15,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioSource deathGroan;
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private AudioClip[] hitSounds;
-    [SerializeField] private Vector3 spawnPoint;
 
     // events out!!!
     public delegate void OnScoreChange();
@@ -27,14 +26,18 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
-    private void OnEnable() { }
-    private void OnDisable() { }
+    private Transform transform;
+
+    private void OnEnable(){}
+    private void OnDisable(){}
 
     private void Awake()
     {
         Health = MAX_HEALTH;
         Hunger = MAX_HUNGER;
         Score = 0;
+
+        transform = GetComponent<Transform>();
     }
 
     private void Update()
@@ -49,7 +52,7 @@ public class PlayerStats : MonoBehaviour
     private void Attack()
     {
         // attack player
-        if (PlayerManager.disabled)
+        if (PlayerMovement.disabled)
             return;
 
 
@@ -106,19 +109,19 @@ public class PlayerStats : MonoBehaviour
         if (deathGroan != null)
             deathGroan.Play();
 
-        PlayerManager.disabled = true;
         onPlayerDeath?.Invoke();
     }
 
     public void Reload()
     {
-        PlayerManager.disabled = false;
+        // transform.position = PlayerMovement.deathPos;
+        PlayerMovement.disabled = false;
         Health = MAX_HEALTH;
         Hunger = MAX_HUNGER;
         onPlayerDamage?.Invoke(); // update health bar on reload
         Score = 0;
-        Transform transform = GetComponent<Transform>();
-        transform.position = spawnPoint;
+
+        transform.position = PlayerMovement.spawnPoint;
     }
 
 }

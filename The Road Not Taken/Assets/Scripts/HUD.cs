@@ -86,14 +86,13 @@ public class HUD : MonoBehaviour
     public void ToggleScoreScreen()
     {
         bool menuOpen = !scoreScreen.activeSelf;
-        PlayerManager.disabled = menuOpen;
+        PlayerMovement.disabled = menuOpen;
         scoreScreen.SetActive(menuOpen);
     }
 
     public void ContinueGame()
     {
         deathScreen.SetActive(false);
-        PlayerManager.disabled = false;
         playerStats.Reload();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public static bool disabled = false;
 
@@ -11,26 +11,39 @@ public class PlayerManager : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
-
+    private Animator animator;
+    public static Vector3 deathPos;
+    public static Vector3 spawnPoint;
+    private Transform transform;
     private void Awake()
     {
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        transform = GetComponent<Transform>();
+
+        transform.position = spawnPoint;
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
+        PlayerStats.onPlayerDeath += OnPlayerDeath;
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
+        PlayerStats.onPlayerDeath -= OnPlayerDeath;
     }
 
     private void Update()
     {
         PlayerInput();
+
+        animator.SetFloat("horizontal", movement.x);
+        animator.SetFloat("vertical", movement.y);
+        animator.SetFloat("speed", movement.sqrMagnitude); // gets sqaure magnitude of movement vector, length of movement vector squared
     }
 
     private void FixedUpdate()
@@ -57,6 +70,15 @@ public class PlayerManager : MonoBehaviour
             rb.velocity = smoothVelocity;
         } else 
             rb.velocity = Vector2.zero;
+    }
+
+    private void OnPlayerDeath()
+    {
+        disabled = true;
+
+        // death animation
+
+        deathPos = transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D col) {

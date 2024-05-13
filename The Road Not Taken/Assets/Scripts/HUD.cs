@@ -64,7 +64,7 @@ public class HUD : MonoBehaviour
                 float alpha = Mathf.Lerp(0f, 1f, PlayerStats.Health / (healthPerHeart * (i + 1)));
                 hearts[i].GetComponent<Image>().color = new Color(255, 255, 255, alpha);
             }
-        }
+        } 
     }
 
     private void UpdateHunger()

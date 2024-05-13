@@ -78,7 +78,8 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         disabled = true;
-        PlayerStats.Score += xpOnKilled;
+        // PlayerStats.Score += xpOnKilled;
+        PlayerStats.ChangeScore(xpOnKilled);
 
         // Destroy self for now until animation is created
         Destroy(gameObject);

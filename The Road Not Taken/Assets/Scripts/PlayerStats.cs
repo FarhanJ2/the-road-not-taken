@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
-    private Transform transform;
+    private new Transform transform;
 
     private void OnEnable(){}
     private void OnDisable(){}
@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void ChangeScore(int scoreChange)
+    public static void ChangeScore(int scoreChange)
     {
         Score += scoreChange;
         onScoreChange?.Invoke();

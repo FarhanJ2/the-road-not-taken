@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     public static Vector3 deathPos;
     public static Vector3 spawnPoint;
-    private Transform transform;
+    private new Transform transform;
     private void Awake()
     {
         playerControls = new PlayerControls();

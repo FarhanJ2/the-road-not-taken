@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     private PlayerControls playerControls;
     private Vector2 movement;
+    public static Vector2 worldPoint;
+    public static Vector2 playerPos;
     private Rigidbody2D rb;
     private Animator animator;
     public static Vector3 deathPos;
@@ -40,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         PlayerInput();
+        playerPos = transform.position;
 
         animator.SetFloat("horizontal", movement.x);
         animator.SetFloat("vertical", movement.y);
@@ -59,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         // legacy movement
-        // rb.MovePosition(rb.position + movement * (moveSpeed * Time.deltaTime));
+        // rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
 
         // new smooth curve movement
         if (!disabled)

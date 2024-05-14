@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191542183f1cd1a409bea21852f4aa21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
   firePoint: {fileID: 3590149892974492392}
   bulletPrefab: {fileID: 4780814518368650944, guid: b45bf61b205cf4c4bb3e20648970ef82,
     type: 3}
@@ -626,7 +627,7 @@ Transform:
   m_GameObject: {fileID: 8041297466358593415}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0037, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0037, y: -0.171, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

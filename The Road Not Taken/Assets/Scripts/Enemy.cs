@@ -10,14 +10,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] Texture2D projectileTexture;
     [SerializeField] private Transform firePoint;
 
+    [SerializeField] private Texture2D cursorCrosshair;
+    [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
+    [SerializeField] private Canvas healthBarCanvas;
+
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
     private float bulletLifetime = 2f;
-
-    public float bulletForce = 20f;
-
+    private float bulletForce = 20f;
     private bool disabled = false;
-    // private Vector2 playerPoint;
 
     private void Awake()
     {
@@ -87,5 +88,21 @@ public class Enemy : MonoBehaviour
 
         // Destroy self for now until animation is created
         Destroy(gameObject);
+    }
+
+    private void OnMouseEnter() {
+        // show health bar
+
+
+        // set cursor to crosshair
+        Cursor.SetCursor(cursorCrosshair, Vector2.zero, cursorMode);
+    }
+
+    private void OnMouseExit() {
+        // hide health bar
+
+
+        // null sets to default cursor
+        Cursor.SetCursor(null, Vector2.zero, cursorMode);
     }
 }

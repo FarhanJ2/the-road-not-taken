@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
-    private Transform transform;
+    private new Transform transform;
 
     private void OnEnable(){}
     private void OnDisable(){}
@@ -42,11 +42,11 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Debug.Log("Key down");
-        //     TakeDamage();
-        // }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Key down");
+            Heal(5);
+        }
     }
 
     private void Attack()
@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void ChangeScore(int scoreChange)
+    public static void ChangeScore(int scoreChange)
     {
         Score += scoreChange;
         onScoreChange?.Invoke();
@@ -102,6 +102,15 @@ public class PlayerStats : MonoBehaviour
             Die();
             Health = 0;
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        Health += healAmount;
+        if (Health > MAX_HEALTH)
+            Health = MAX_HEALTH;
+
+        onPlayerDamage?.Invoke();
     }
 
     private void Die()

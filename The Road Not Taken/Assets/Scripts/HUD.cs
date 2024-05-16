@@ -15,9 +15,17 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
 
+    [SerializeField] private Animator heartAnimator;
+
     private void Awake()
     {
         scoreText.text = PlayerStats.Score.ToString();
+    }
+
+    private void Start()
+    {
+        // this is in start because the player stats are not initialized in awake
+        heartAnimator.SetFloat("health", PlayerStats.Health); 
     }
 
     private void OnEnable()
@@ -41,6 +49,7 @@ public class HUD : MonoBehaviour
 
     private void UpdateHealth()
     {
+        heartAnimator.SetFloat("health", PlayerStats.Health);
         float healthPerHeart = PlayerStats.MAX_HEALTH / hearts.Length;
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -55,7 +64,7 @@ public class HUD : MonoBehaviour
                 float alpha = Mathf.Lerp(0f, 1f, PlayerStats.Health / (healthPerHeart * (i + 1)));
                 hearts[i].GetComponent<Image>().color = new Color(255, 255, 255, alpha);
             }
-        }
+        } 
     }
 
     private void UpdateHunger()

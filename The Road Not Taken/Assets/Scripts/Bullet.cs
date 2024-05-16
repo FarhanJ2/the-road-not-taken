@@ -25,7 +25,6 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log(col);
             col.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
-
             Destroy(gameObject);
         }
         else if (col.gameObject.CompareTag("Wall"))
@@ -33,6 +32,7 @@ public class Bullet : MonoBehaviour
         else if (col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<PlayerStats>().TakeDamage(Damage);
+            Destroy(gameObject);
         }
     }
 }

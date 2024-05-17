@@ -32,6 +32,7 @@ public class StoryManager : MonoBehaviour
     private void Start()
     {
         LoadJson();
+        StartGame();
     }
 
     private void LoadJson()

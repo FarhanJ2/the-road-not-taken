@@ -82,7 +82,7 @@ public class PlayerStats : MonoBehaviour
         onScoreChange?.Invoke();
     }
 
-    public void TakeDamage(int attackDamage = 10)
+    public void TakeDamage(int attackDamage)
     {
         if (Health <= 0)
             return;

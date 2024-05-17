@@ -20797,6 +20797,8 @@ MonoBehaviour:
   - {fileID: 202122436}
   - {fileID: 481810250}
   hungerIndicators: []
+  music: {fileID: 366679132}
+  song: {fileID: 8300000, guid: bebbdd168d050994f8c7fa575f38c059, type: 3}
   deathScreen: {fileID: 487215020}
   scoreScreen: {fileID: 96882413}
   heartAnimator: {fileID: 417869186}

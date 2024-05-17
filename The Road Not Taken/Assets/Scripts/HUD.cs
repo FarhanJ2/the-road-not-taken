@@ -11,10 +11,11 @@ public class HUD : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject[] hearts;
     [SerializeField] private GameObject[] hungerIndicators;
+    [SerializeField] private AudioSource music;
+    [SerializeField] private AudioClip song;
 
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
-
     [SerializeField] private Animator heartAnimator;
 
     private void Awake()
@@ -49,6 +50,15 @@ public class HUD : MonoBehaviour
 
     private void UpdateHealth()
     {
+        if (PlayerStats.Health <= 30)
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = song;
+                music.Play();
+            }
+        }
+
         heartAnimator.SetFloat("health", PlayerStats.Health);
         float healthPerHeart = PlayerStats.MAX_HEALTH / hearts.Length;
         for (int i = 0; i < hearts.Length; i++)

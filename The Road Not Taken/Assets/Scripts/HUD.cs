@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,13 +13,17 @@ public class HUD : MonoBehaviour
     [SerializeField] private AudioClip song;
 
     [Header("Dialogue UI")]
-    [SerializeField] private GameObject dialogueUI;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text dialogueText;
 
+    [Header("Screens")]
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
+    [SerializeField] private GameObject dialogueScreen;
+
+    [Header("Animations")]
     [SerializeField] private Animator heartAnimator;
+    [SerializeField] private Animator dialogueAnimator;
 
     private void Awake()
     {
@@ -41,7 +43,7 @@ public class HUD : MonoBehaviour
         PlayerStats.onScoreChange += UpdateScore;
 
         DialogueManager.onDialogueChange += UpdateDialogue;
-        DialogueManager.onDialogueEnd += () => dialogueUI.SetActive(false);
+        DialogueManager.onDialogueEnd += DisableDialogue;
     }
 
     private void OnDisable()
@@ -51,7 +53,7 @@ public class HUD : MonoBehaviour
         PlayerStats.onScoreChange -= UpdateScore;
 
         DialogueManager.onDialogueChange -= UpdateDialogue;
-        DialogueManager.onDialogueEnd -= () => dialogueUI.SetActive(false);
+        DialogueManager.onDialogueEnd -= DisableDialogue;
     }
 
     private void UpdateScore()
@@ -61,9 +63,33 @@ public class HUD : MonoBehaviour
 
     private void UpdateDialogue(string name, string dialogue)
     {
-        dialogueUI.SetActive(true);
+        dialogueScreen.SetActive(true);
+        dialogueAnimator.Play("SizeOut");
         nameText.text = name;
-        dialogueText.text = dialogue;
+        
+        dialogueText.text = "";
+        StartCoroutine(WaitForChar(dialogue));
+    }
+
+    private void DisableDialogue()
+    {
+        dialogueAnimator.Play("SizeIn");
+        StartCoroutine(WaitForAnim());
+    }
+
+    IEnumerator WaitForAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        dialogueScreen.SetActive(false);
+    }
+
+    IEnumerator WaitForChar(string dialogue)
+    {
+        for (int i = 0; i < dialogue.Length; i++)
+        {
+            dialogueText.text += dialogue[i];
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void UpdateHealth()

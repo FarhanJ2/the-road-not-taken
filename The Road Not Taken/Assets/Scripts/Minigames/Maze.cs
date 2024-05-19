@@ -60,7 +60,9 @@ public class Maze : MonoBehaviour
 
     private void OnDestroy()
     {
-        StoryManager.Instance.EndGame();
+        // StoryManager.Instance.EndGame();
+        // StoryManager.Instance.State = StoryManager.State.NestBuilding;
+        StoryManager.Instance.GameState = StoryManager.State.NestBuilding;
     }
 
     private void CheckForStateChange()
@@ -96,6 +98,19 @@ public class Maze : MonoBehaviour
             GameState = State.Start;
             StartCoroutine(StartMaze());
             mazeStarted = true;
+        }
+    }
+
+    public void CheckFeathersCollected()
+    {
+        if (GameState == State.FeatherFive)
+        {
+            GameState = State.End;
+            Debug.Log("Onwards!");
+        }
+        else
+        {
+            Debug.Log("Only " + (int)(State.FeatherFive - GameState) + " more to find!");
         }
     }
 

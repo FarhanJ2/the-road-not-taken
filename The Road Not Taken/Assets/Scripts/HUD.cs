@@ -20,6 +20,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
     [SerializeField] private GameObject dialogueScreen;
+    [SerializeField] private GameObject bloodVignette;
 
     [Header("Animations")]
     [SerializeField] private Animator heartAnimator;
@@ -104,6 +105,7 @@ public class HUD : MonoBehaviour
         }
 
         heartAnimator.SetFloat("health", PlayerStats.Health);
+        bloodVignette.GetComponent<Image>().color = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
         float healthPerHeart = PlayerStats.MAX_HEALTH / hearts.Length;
         for (int i = 0; i < hearts.Length; i++)
         {

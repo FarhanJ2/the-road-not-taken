@@ -26,6 +26,9 @@ public class PlayerStats : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
+    public delegate void OnReload();
+    public static event OnReload onReload;
+
     private new Transform transform;
 
     private void OnEnable(){}
@@ -118,17 +121,20 @@ public class PlayerStats : MonoBehaviour
         if (deathGroan != null)
             deathGroan.Play();
 
+        Time.timeScale = 0.5f;
         onPlayerDeath?.Invoke();
     }
 
     public void Reload()
     {
         // transform.position = PlayerMovement.deathPos;
+        onReload?.Invoke();
         PlayerMovement.disabled = false;
         Health = MAX_HEALTH;
         Hunger = MAX_HUNGER;
         onPlayerDamage?.Invoke(); // update health bar on reload
         Score = 0;
+        Time.timeScale = 1f;
 
         transform.position = PlayerMovement.spawnPoint;
     }

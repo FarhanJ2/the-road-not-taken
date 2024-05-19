@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Feather : MonoBehaviour
@@ -8,7 +7,7 @@ public class Feather : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public AudioSource pickUpSound;
     private Color lerpColor = Color.white;
-    private bool Enabled = true;
+    private new bool enabled = true;
 
     private void Start()
     {
@@ -30,7 +29,7 @@ public class Feather : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!Enabled) return;
+        if (!enabled) return;
 
         PlayerStats.ChangeScore(scorePerCollection);
 

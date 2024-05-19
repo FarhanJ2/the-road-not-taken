@@ -35,12 +35,19 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls.Enable();
         PlayerStats.onPlayerDeath += OnPlayerDeath;
+        PlayerStats.onReload += Reload;
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
         PlayerStats.onPlayerDeath -= OnPlayerDeath;
+        PlayerStats.onReload -= Reload;
+    }
+
+    private void Reload()
+    {
+        animator.SetBool("isDead", false);
     }
 
     private void Update()
@@ -137,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         disabled = true;
 
         // death animation
-
+        animator.SetBool("isDead", true);
         deathPos = transform.position;
     }
 

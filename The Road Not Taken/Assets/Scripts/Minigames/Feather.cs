@@ -5,6 +5,7 @@ public class Feather : Item
 {
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if (!col.CompareTag("Player")) return;
         if (!enabled) return;
 
         PlayerStats.ChangeScore(scorePerCollection);

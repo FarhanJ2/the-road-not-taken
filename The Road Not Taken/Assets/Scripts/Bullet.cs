@@ -13,6 +13,11 @@ public class Bullet : MonoBehaviour
     public int Damage { get; set; }
     public BulletType BulletType { get; set; }
 
+    private void Update()
+    {
+        Debug.Log(transform.rotation);
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (BulletType == BulletType.Player && col.gameObject.CompareTag("Player"))
@@ -24,8 +29,9 @@ public class Bullet : MonoBehaviour
         if (col.gameObject.CompareTag("Enemy"))
         {
             Debug.Log(col);
-            col.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
+            // col.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);
+            return;
         }
         else if (col.gameObject.CompareTag("Wall"))
             Destroy(gameObject);

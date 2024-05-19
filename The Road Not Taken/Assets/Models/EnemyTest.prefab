@@ -314,7 +314,7 @@ MonoBehaviour:
   cursorCrosshair: {fileID: 2800000, guid: e6b159110f81a4c23ba1c6c6171a5d7e, type: 3}
   cursorMode: 0
   healthBarCanvas: {fileID: 0}
-  bulletPrefab: {fileID: 4780814518368650944, guid: b45bf61b205cf4c4bb3e20648970ef82,
+  bulletPrefab: {fileID: 4780814518368650944, guid: 2277df48be4641c4b99518b146537b58,
     type: 3}
 --- !u!70 &6174743624398920287
 CapsuleCollider2D:

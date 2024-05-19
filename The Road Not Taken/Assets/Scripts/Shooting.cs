@@ -17,6 +17,8 @@ public class Shooting : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         laserLine = GetComponent<LineRenderer>();
+
+        // Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     private void OnEnable()
@@ -52,7 +54,7 @@ public class Shooting : MonoBehaviour
         // keep for muzzle flash direction
         Vector2 worldPoint = PlayerCamera.Instance.cam.ScreenToWorldPoint(Mouse.current.position.ReadValue()); // old ScreenToViewportPoint not working either
         Vector2 lookDir = worldPoint - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
 
 
@@ -62,5 +64,21 @@ public class Shooting : MonoBehaviour
         // pref.BulletType = BulletType.Player;
         // bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
         // Destroy(bullet, bulletLifetime);
+
+        // Vector2 lookDir = PlayerMovement.playerPos - rb.position;
+        // float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
+        // firePoint.rotation = Quaternion.Euler(0, 0, angle);
+
+
+        // Debug.Log("Attacking player at angle: " + angle);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+        // Debug.Log("Quaternion: " + quaternion);
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 135f);
+        Bullet pref = bullet.GetComponent<Bullet>();
+        pref.Damage = damage;
+        pref.BulletType = BulletType.Player;
+        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+        Destroy(bullet, 2f);
     }
 }

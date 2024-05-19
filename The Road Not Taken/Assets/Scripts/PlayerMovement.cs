@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if (movement != Vector2.zero) // check if moving
         {
             StopCoroutine(ResetMoveSpeedAfterDelay(3f)); // stop the coroutine if the player starts moving
-            moveSpeed += Time.deltaTime; // increase moveSpeed by the time passed since the last frame
+            moveSpeed += Time.deltaTime * 0.8f; // increase moveSpeed by the time passed since the last frame
             moveSpeed = Mathf.Clamp(moveSpeed, 0f, terminalSpeed); // cap moveSpeed at terminalSpeed
         }
         else if (!IsCoroutineRunning("ResetMoveSpeedCoroutine")) // check if the coroutine is already running

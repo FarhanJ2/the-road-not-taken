@@ -9,7 +9,6 @@ public class Shooting : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
-
     public float bulletForce = 20f;
 
     private LineRenderer laserLine; // temp linerenderer for raycast

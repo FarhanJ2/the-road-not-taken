@@ -38,14 +38,12 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         // attack player
-        if (disabled)
-            return;
+        if (disabled) return;
         
         // deal damage to player
         Vector2 lookDir = PlayerMovement.playerPos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
-
 
         // fix so that it doesnt hit its own collider
         // GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -68,7 +66,7 @@ public class Enemy : MonoBehaviour
 
         // on sight, move towards player
         
-
+        
     }
 
     public void TakeDamage(int damage)

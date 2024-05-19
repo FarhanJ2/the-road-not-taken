@@ -117,7 +117,7 @@ public class Maze : MonoBehaviour
     IEnumerator StartMaze()
     {
         PlayerMovement.disabled = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         music.clip = song;
         music.Play();
         PlayerMovement.disabled = false;

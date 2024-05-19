@@ -35,5 +35,12 @@ public class Bullet : MonoBehaviour
             col.gameObject.GetComponent<PlayerStats>().TakeDamage(Damage);
             Destroy(gameObject);
         }
+        else if (col.gameObject.CompareTag("Crate"))
+        {
+            col.gameObject.GetComponent<Crate>().TakeDamage(Damage);
+            Destroy(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 }

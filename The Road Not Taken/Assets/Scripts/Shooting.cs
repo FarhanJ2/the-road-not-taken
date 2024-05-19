@@ -41,8 +41,6 @@ public class Shooting : MonoBehaviour
             return;
 
         // switching to ray cast checks
-        Debug.Log("Fired!");
-
         fire.clip = fireSounds[Random.Range(0, fireSounds.Length)];
         fire.Play();
 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Wall
+  - Ally
+  - Crate
   layers:
   - Default
   - TransparentFX

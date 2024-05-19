@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioSource deathGroan;
     [SerializeField] private AudioClip[] deathSounds;
 
+    [SerializeField] private AudioSource fireSound;
+    [SerializeField] private AudioClip[] fireSounds;
+
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
     private float bulletLifetime = 2f;
@@ -62,6 +65,9 @@ public class Enemy : MonoBehaviour
         // attack player
         if (disabled) return;
         
+        fireSound.clip = fireSounds[Random.Range(0, fireSounds.Length)];
+        fireSound.Play();
+
         // deal damage to player
         Vector2 lookDir = PlayerMovement.playerPos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
@@ -99,6 +105,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (disabled) return;
         disabled = true;
         // PlayerStats.Score += xpOnKilled;
         PlayerStats.ChangeScore(xpOnKilled);
@@ -107,7 +114,11 @@ public class Enemy : MonoBehaviour
         deathGroan.Play();
 
         // Destroy self for now until animation is created
-        Destroy(gameObject);
+        
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().color = new Color(140, 0, 0, 1);
+
+        // Destroy(gameObject, 3f);
     }
 
     private void OnMouseEnter() {

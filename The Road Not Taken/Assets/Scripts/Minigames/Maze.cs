@@ -122,7 +122,7 @@ public class Maze : MonoBehaviour
         {
             Interactable interactable = new Interactable();
             interactable.dialogue = new Dialogue();
-            interactable.dialogue.sentences = new string[] { "Only " + (int)(State.FeatherFive - GameState) + " more to find!" };
+            interactable.dialogue.sentences = new string[] { "You need all feathers to pass. Currently you need " + (int)(State.FeatherFive - GameState) + " more!" };
             interactable.TriggerDialogue();
             Debug.Log("Only " + (int)(State.FeatherFive - GameState) + " more to find!");
             playerPassed = false;

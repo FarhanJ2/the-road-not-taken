@@ -6,6 +6,8 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     [SerializeField] private int damage = 5;
+    [SerializeField] AudioSource fire;
+    [SerializeField] AudioClip[] fireSounds;
     public Transform firePoint;
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
@@ -40,6 +42,10 @@ public class Shooting : MonoBehaviour
 
         // switching to ray cast checks
         Debug.Log("Fired!");
+
+        fire.clip = fireSounds[Random.Range(0, fireSounds.Length)];
+        fire.Play();
+
         Ray ray = PlayerCamera.Instance.cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit.collider != null)

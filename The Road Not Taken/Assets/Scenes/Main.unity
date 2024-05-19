@@ -3738,6 +3738,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e101707fc282bbf4a8c7f5479ee703be, type: 3}
+--- !u!1001 &325882473
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 83.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 23.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6460889750094099603, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653557460112691153, guid: b095c81687c580f4e891f7b3c6199eb6,
+        type: 3}
+      propertyPath: m_Name
+      value: Heart (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b095c81687c580f4e891f7b3c6199eb6, type: 3}
 --- !u!4 &328773042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 39562e88b536753438a3153c5fbdf7b8,
@@ -61417,7 +61485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451753db3604bd24f9e905a0840cd3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playOnce: 0
+  playOnce: 1
   dialogue:
     name: 
     sentences:
@@ -64423,6 +64491,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 286190802003831486, guid: e101707fc282bbf4a8c7f5479ee703be,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 286190802003831486, guid: e101707fc282bbf4a8c7f5479ee703be,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 286190802003831486, guid: e101707fc282bbf4a8c7f5479ee703be,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 924654800850436759, guid: e101707fc282bbf4a8c7f5479ee703be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65556,4 +65639,5 @@ SceneRoots:
   - {fileID: 55085494}
   - {fileID: 821871369}
   - {fileID: 4127181969771864675}
+  - {fileID: 325882473}
   - {fileID: 522221518}

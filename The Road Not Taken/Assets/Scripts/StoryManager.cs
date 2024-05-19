@@ -53,9 +53,52 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    public enum State
+    {
+        Start,
+        Maze,
+        NestBuilding,
+        FlightPath,
+        MusicPuzzle,
+        End
+    }
+
+    public State GameState
+    {
+        get { return gameState; } 
+        set
+        {
+            gameState = value;
+            Debug.Log("Game state changed to: " + value);
+            CheckForStateChange();
+        }
+    }
+
+    private void CheckForStateChange()
+    {
+        switch (GameState)
+        {
+            case State.Start:
+                break;
+            case State.Maze:
+                break;
+            case State.NestBuilding:
+                break;
+            case State.FlightPath:
+                break;
+            case State.MusicPuzzle:
+                break;
+            case State.End:
+                break;
+        }
+    }
+
+    private State gameState;
+
     public void StartGame()
     {
         Debug.Log("Game started!");
+        GameState = State.Start;
     }
 
     public void EndGame()

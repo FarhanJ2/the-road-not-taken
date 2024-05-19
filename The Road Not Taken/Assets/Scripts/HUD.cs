@@ -14,6 +14,11 @@ public class HUD : MonoBehaviour
     [SerializeField] private AudioSource music;
     [SerializeField] private AudioClip song;
 
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialogueUI;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text dialogueText;
+
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
     [SerializeField] private Animator heartAnimator;
@@ -34,6 +39,9 @@ public class HUD : MonoBehaviour
         PlayerStats.onPlayerDamage += UpdateHealth;
         PlayerStats.onPlayerDeath += ToggleDeathScreen;
         PlayerStats.onScoreChange += UpdateScore;
+
+        DialogueManager.onDialogueChange += UpdateDialogue;
+        DialogueManager.onDialogueEnd += () => dialogueUI.SetActive(false);
     }
 
     private void OnDisable()
@@ -41,11 +49,21 @@ public class HUD : MonoBehaviour
         PlayerStats.onPlayerDamage -= UpdateHealth;
         PlayerStats.onPlayerDeath -= ToggleDeathScreen;
         PlayerStats.onScoreChange -= UpdateScore;
+
+        DialogueManager.onDialogueChange -= UpdateDialogue;
+        DialogueManager.onDialogueEnd -= () => dialogueUI.SetActive(false);
     }
 
     private void UpdateScore()
     {
         scoreText.text = PlayerStats.Score.ToString();
+    }
+
+    private void UpdateDialogue(string name, string dialogue)
+    {
+        dialogueUI.SetActive(true);
+        nameText.text = name;
+        dialogueText.text = dialogue;
     }
 
     private void UpdateHealth()

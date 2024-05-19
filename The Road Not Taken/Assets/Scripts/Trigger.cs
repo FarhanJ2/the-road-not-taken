@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    // [SerializeField] private bool overrideTag = false;
     [SerializeField] private UnityEvent playerEvent;
     [SerializeField] private UnityEvent enemyEvent;
     private Color gizmoColor = Color.yellow;
@@ -20,14 +19,12 @@ public class Trigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Entered player trigger");
-            if (playerEvent != null)
-                playerEvent.Invoke();
+            playerEvent?.Invoke();
         }
         else if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Entered enemy trigger");
-            if (enemyEvent != null)
-                enemyEvent.Invoke();
+            enemyEvent?.Invoke();
         }
     }
 }

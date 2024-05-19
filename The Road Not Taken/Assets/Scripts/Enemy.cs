@@ -45,12 +45,9 @@ public class Enemy : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // atan2 returns angle between x axi and a 2d vector starting at 0,0 terminating at x, y
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
 
-        Debug.Log("Attacking player at angle: " + angle);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
-        Quaternion quaternion = Quaternion.Euler(0, 0, angle + 135f);
-        Debug.Log("Quaternion: " + quaternion);
-        bullet.transform.rotation = quaternion;
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 135f);
         Bullet pref = bullet.GetComponent<Bullet>();
         pref.Damage = damage;
         pref.BulletType = BulletType.Enemy;

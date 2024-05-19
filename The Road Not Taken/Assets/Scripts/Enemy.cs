@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -14,6 +15,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
     [SerializeField] private Canvas healthBarCanvas;
 
+    [SerializeField] private AudioSource deathGroan;
+    [SerializeField] private AudioClip[] deathSounds;
+
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
     private float bulletLifetime = 2f;
@@ -24,14 +28,32 @@ public class Enemy : MonoBehaviour
     {
         Health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        StartCoroutine(AttackSequence());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        // if (Input.GetKeyDown(KeyCode.Return))
+        // {
+        //     Debug.Log("Key down");
+        //     Attack();
+        // }
+    }
+
+    IEnumerator AttackSequence()
+    {
+        while (true)
         {
-            Debug.Log("Key down");
             Attack();
+            yield return new WaitForSeconds(.5f);
+            Attack();
+            yield return new WaitForSeconds(.5f);
+            Attack();
+            yield return new WaitForSeconds(.5f);
+            Attack();
+            yield return new WaitForSeconds(.5f);
+            Attack();
+            yield return new WaitForSeconds(2f);
         }
     }
 
@@ -80,6 +102,9 @@ public class Enemy : MonoBehaviour
         disabled = true;
         // PlayerStats.Score += xpOnKilled;
         PlayerStats.ChangeScore(xpOnKilled);
+
+        deathGroan.clip = deathSounds[Random.Range(0, deathSounds.Length)];
+        deathGroan.Play();
 
         // Destroy self for now until animation is created
         Destroy(gameObject);

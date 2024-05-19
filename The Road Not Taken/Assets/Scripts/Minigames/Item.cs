@@ -7,7 +7,7 @@ public class Item : MonoBehaviour
     public int scorePerCollection = 5;
     public AudioSource pickUpSound;
     private SpriteRenderer spriteRenderer;
-    public bool enabled = true;
+    public new bool enabled = true;
     private Color lerpColor = Color.white;
 
     private void Start()

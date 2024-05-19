@@ -9,6 +9,10 @@ public class Maze : MonoBehaviour
     [SerializeField] private AudioSource sfx;
     [SerializeField] private AudioClip song;
 
+    [SerializeField] private GameObject gateOpen;
+    [SerializeField] private GameObject gateClose;
+    [SerializeField] private GameObject boundary;
+
     public enum State
     {
         Uninitialized,
@@ -56,6 +60,10 @@ public class Maze : MonoBehaviour
     {
         StoryManager.Instance.StartGame();
         GameState = State.Uninitialized;
+
+        gateClose.SetActive(true);
+        gateOpen.SetActive(false);
+        boundary.SetActive(true);
     }
 
     private void OnDestroy()
@@ -69,19 +77,14 @@ public class Maze : MonoBehaviour
     {
         switch (GameState)
         {
-            case State.Uninitialized:
-                break;
-            case State.Start:
-                break;
-            case State.FeatherOne:
-                break;
-            case State.FeatherTwo:
-                break;
-            case State.FeatherThree:
-                break;
-            case State.FeatherFour:
-                break;
             case State.FeatherFive:
+                Interactable interactable = new Interactable();
+                interactable.dialogue = new Dialogue();
+                interactable.dialogue.sentences = new string[] { "You found all the feathers! The gate is open now!" };
+                interactable.TriggerDialogue();
+                gateClose.SetActive(false);
+                gateOpen.SetActive(true);
+                boundary.SetActive(false);
                 break;
             case State.End:
                 break;
@@ -101,16 +104,28 @@ public class Maze : MonoBehaviour
         }
     }
 
+    private bool playerPassed = false;
     public void CheckFeathersCollected()
     {
+        if (playerPassed) return;
+
         if (GameState == State.FeatherFive)
         {
             GameState = State.End;
-            Debug.Log("Onwards!");
+            Interactable interactable = new Interactable();
+            interactable.dialogue = new Dialogue();
+            interactable.dialogue.sentences = new string[] { "You found all the feathers! Onwards!" };
+            interactable.TriggerDialogue();
+            playerPassed = true;
         }
         else
         {
+            Interactable interactable = new Interactable();
+            interactable.dialogue = new Dialogue();
+            interactable.dialogue.sentences = new string[] { "Only " + (int)(State.FeatherFive - GameState) + " more to find!" };
+            interactable.TriggerDialogue();
             Debug.Log("Only " + (int)(State.FeatherFive - GameState) + " more to find!");
+            playerPassed = false;
         }
     }
 

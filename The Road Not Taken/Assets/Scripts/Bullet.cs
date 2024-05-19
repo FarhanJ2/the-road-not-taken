@@ -13,11 +13,6 @@ public class Bullet : MonoBehaviour
     public int Damage { get; set; }
     public BulletType BulletType { get; set; }
 
-    private void Update()
-    {
-        Debug.Log(transform.rotation);
-    }
-
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (BulletType == BulletType.Player && col.gameObject.CompareTag("Player"))

@@ -41,6 +41,11 @@ public class Enemy : MonoBehaviour
         //     Debug.Log("Key down");
         //     Attack();
         // }
+        if (PlayerMovement.playerPos.x > transform.position.x) {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else {
+             transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     IEnumerator AttackSequence()

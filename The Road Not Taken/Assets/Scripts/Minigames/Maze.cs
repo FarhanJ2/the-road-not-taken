@@ -104,6 +104,13 @@ public class Maze : MonoBehaviour
         }
     }
 
+    public void closeGate()
+    {
+        gateClose.SetActive(true);
+        gateOpen.SetActive(false);
+        boundary.SetActive(true);
+    }
+
     private bool playerPassed = false;
     public void CheckFeathersCollected()
     {

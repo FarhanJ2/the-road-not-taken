@@ -9,8 +9,12 @@ public class Key : Item
         if (!col.CompareTag("Player")) return;
         if (!enabled) return;
 
-        // col.GetComponent<PlayerStats>().Heal(scorePerCollection);
-        pickUpSound.Play();
+        if (ForestSearch.Instance.GameState == ForestSearch.State.FoundKey || ForestSearch.Instance.GameState == ForestSearch.State.FoundAnotherKey)
+            ForestSearch.Instance.GameState = ForestSearch.State.FoundAnotherKey;
+        else
+            ForestSearch.Instance.GameState = ForestSearch.State.FoundKey;
+        
+        pickUpSound?.Play();
         StartCoroutine(FadeOut());
     }
 }

@@ -5,16 +5,21 @@ using UnityEngine;
 public class GenerateCrates : MonoBehaviour
 {
     [SerializeField] private GameObject generativeArea;
-    [SerializeField] private int numberOfCrates;    
+    [SerializeField] private int numberOfCrates;
     [SerializeField] private int cratesWithItem;
     [SerializeField] private GameObject[] items;
     [SerializeField] private GameObject[] crateModels;
 
     [SerializeField] private GameObject[] area = new GameObject[2];
+    // Vector3[] occupied = new Vector3[numberOfCrates]; // add the size specifier before the variable's identifier
+    List<Vector3> occupied = new List<Vector3>();
 
     private void Start()
     {
         generativeArea = this.gameObject;
+
+        if (area.Length != 2)
+            Debug.LogError("Area is not set in the inspector");
 
         if (generativeArea == null)
         {
@@ -37,8 +42,8 @@ public class GenerateCrates : MonoBehaviour
 
 
     // QUICK AND VERY BAD GENERATOR!!!
-    // this doesnt check for collision or if there is already an item there
-    // just hope for the best!!!
+    // this doesnt really spread out the items very well
+    // which may lead to items being veyr close to each other
     private void Generate()
     {
         // for (int i = 0; i < 10; i++)
@@ -46,14 +51,15 @@ public class GenerateCrates : MonoBehaviour
         //     GameObject crate = Instantiate(Resources.Load("Prefabs/Crate"), generativeArea.transform) as GameObject;
         //     crate.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
         // }
-        Vector3[] occupied = new Vector3[numberOfCrates]; // add the size specifier before the variable's identifier
+        // Vector3[] occupied = new Vector3[numberOfCrates]; // add the size specifier before the variable's identifier
 
-        for (int i = 0; i < numberOfCrates; i++)
+        for (int i = 0; i < numberOfCrates - cratesWithItem; i++)
         {
-            GameObject crate = Instantiate(Random.Range(0, 1) > .5 ? crateModels[0] : crateModels[1], generativeArea.transform) as GameObject;
+            // GameObject crate = Instantiate(Random.Range(0, 1) > .5 ? crateModels[0] : crateModels[1], generativeArea.transform) as GameObject;
+            GameObject crate = Instantiate(crateModels[Random.Range(0, crateModels.Length)], generativeArea.transform) as GameObject;
             // crate.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
-            occupied[i] = new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0);
-            if (i > 0 && occupied[i] == occupied[i - 1])
+            occupied.Add(new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0));
+            if (i > 0 && occupied[i] == occupied[i - 1]) // this doesnt even work it has to loop throug the rest behind it to check iof its being occupied by another crate
             {
                 i--;
                 continue;
@@ -61,14 +67,32 @@ public class GenerateCrates : MonoBehaviour
             crate.transform.position = occupied[i];
 
             // crate.transform.position = new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0);
-            if (i < cratesWithItem)
+            // if (i < cratesWithItem)
+            // {
+            //     Debug.Log("Creating item");
+            //     GameObject item = items[Random.Range(0, items.Length)];
+            //     GameObject createdItem = Instantiate(item, crate.transform.position, Quaternion.identity);
+            //     createdItem.AddComponent<BoxCollider2D>().isTrigger = true;
+            //     createdItem.AddComponent<Rigidbody2D>();
+            //     createdItem.AddComponent<Key>();
+            // }
+        }
+
+        for (int i = 0; i < cratesWithItem; i++)
+        {
+            Debug.Log("Second loop");
+            GameObject crate = Instantiate(crateModels[Random.Range(0, crateModels.Length)], generativeArea.transform) as GameObject;
+            occupied.Add(new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0));
+            // this doesnt even work it has to loop throug the rest behind it to check iof its being occupied by another crate
+            if (i > 0 && occupied[i] == occupied[i - 1]) // add numberOfCrates to i because we are starting from the second loop
             {
-                GameObject item = items[Random.Range(0, items.Length)];
-                GameObject createdItem = Instantiate(item, crate.transform.position, Quaternion.identity);
-                createdItem.AddComponent<BoxCollider2D>().isTrigger = true;
-                createdItem.AddComponent<Rigidbody2D>();
-                createdItem.AddComponent<Key>();
+                i--;
+                continue;
             }
+            crate.transform.position = occupied[i];
+            crate.GetComponent<Crate>().item = items[0];
+
+            // crate.transform.position = new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0);
         }
     }
 }

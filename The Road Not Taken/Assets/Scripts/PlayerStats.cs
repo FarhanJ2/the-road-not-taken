@@ -97,7 +97,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         Health -= attackDamage;
-        Debug.Log(Health);
+        // Debug.Log(Health);
         onPlayerDamage?.Invoke();
 
         if (Health <= 0)

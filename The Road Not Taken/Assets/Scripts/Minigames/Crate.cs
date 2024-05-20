@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    [SerializeField] private GameObject item;
+    public GameObject item;
     [SerializeField] private AudioClip[] hitSounds;
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private AudioSource destroySound;

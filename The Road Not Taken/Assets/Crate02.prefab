@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05cabf7078add44b0930fcb05022e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 1150141336559280173, guid: 3ed5ce4aacc1fb54f919b518d354992b, type: 3}
+  item: {fileID: 0}
   hitSounds:
   - {fileID: 8300000, guid: 0e6b177a7aff636438f853cdb74c7b50, type: 3}
   - {fileID: 8300000, guid: b3addfb4241258048b82ffb64c28776b, type: 3}

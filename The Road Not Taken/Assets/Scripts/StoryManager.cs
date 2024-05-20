@@ -43,8 +43,8 @@ public class StoryManager : MonoBehaviour
             PathDataList dataList = JsonUtility.FromJson<PathDataList>("{\"paths\":" + json + "}");
             foreach (PathData pathData in dataList.paths)
             {
-                Debug.Log("Path A: " + pathData.pathA);
-                Debug.Log("Path B: " + pathData.pathB);
+                // Debug.Log("Path A: " + pathData.pathA);
+                // Debug.Log("Path B: " + pathData.pathB);
             }
         }
         catch (Exception e)
@@ -57,7 +57,7 @@ public class StoryManager : MonoBehaviour
     {
         Start,
         Maze,
-        NestBuilding,
+        ForestSearch,
         FlightPath,
         MusicPuzzle,
         End
@@ -82,7 +82,7 @@ public class StoryManager : MonoBehaviour
                 break;
             case State.Maze:
                 break;
-            case State.NestBuilding:
+            case State.ForestSearch:
                 break;
             case State.FlightPath:
                 break;
@@ -97,7 +97,7 @@ public class StoryManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Game started!");
+        // Debug.Log("Game started!");
         GameState = State.Start;
     }
 

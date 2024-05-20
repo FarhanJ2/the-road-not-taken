@@ -69,8 +69,8 @@ public class Maze : MonoBehaviour
     private void OnDestroy()
     {
         // StoryManager.Instance.EndGame();
-        // StoryManager.Instance.State = StoryManager.State.NestBuilding;
-        StoryManager.Instance.GameState = StoryManager.State.NestBuilding;
+        // StoryManager.Instance.State = StoryManager.State.ForestSearch;
+        StoryManager.Instance.GameState = StoryManager.State.ForestSearch;
     }
 
     private void CheckForStateChange()

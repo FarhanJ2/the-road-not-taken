@@ -150,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Player hit something");
+        // Debug.Log("Player hit something");
         if (col.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Player hit a wall!");

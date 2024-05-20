@@ -75,8 +75,25 @@ public class HUD : MonoBehaviour
         dialogueAnimator.Play("SizeOut");
         nameText.text = name;
         
-        dialogueText.text = "";
+        StopAllCoroutines();
         StartCoroutine(WaitForChar(dialogue));
+    }
+
+    IEnumerator WaitForChar(string dialogue)
+    {
+        // for (int i = 0; i < dialogue.Length; i++)
+        // {
+        //     dialogueText.text += dialogue[i];
+        //     yield return new WaitForSeconds(0.1f);
+        // }
+
+        dialogueText.text = "";
+        foreach (char letter in dialogue.ToCharArray())
+        {
+            dialogueText.text += letter;
+            // yield return null; doesnt work???? why
+            yield return new WaitForSeconds(.05f);
+        }
     }
 
     private void DisableDialogue()
@@ -89,15 +106,6 @@ public class HUD : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         dialogueScreen.SetActive(false);
-    }
-
-    IEnumerator WaitForChar(string dialogue)
-    {
-        for (int i = 0; i < dialogue.Length; i++)
-        {
-            dialogueText.text += dialogue[i];
-            yield return new WaitForSeconds(0.1f);
-        }
     }
 
     private void UpdateHealth()

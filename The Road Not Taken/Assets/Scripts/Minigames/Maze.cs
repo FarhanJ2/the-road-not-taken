@@ -70,7 +70,7 @@ public class Maze : MonoBehaviour
     {
         // StoryManager.Instance.EndGame();
         // StoryManager.Instance.State = StoryManager.State.ForestSearch;
-        StoryManager.Instance.GameState = StoryManager.State.ForestSearch;
+        // StoryManager.Instance.GameState = StoryManager.State.ForestSearch;
     }
 
     private void CheckForStateChange()
@@ -93,23 +93,23 @@ public class Maze : MonoBehaviour
         }
     }
 
-    private bool mazeStarted = false;
+    // private bool mazeStarted = false;
     public void OnEnterMaze()
     {
-        if (!mazeStarted)
+        if (GameState == State.Uninitialized)
         {
             GameState = State.Start;
             StartCoroutine(StartMaze());
-            mazeStarted = true;
+            // mazeStarted = true;
         }
     }
 
-    public void closeGate()
-    {
-        gateClose.SetActive(true);
-        gateOpen.SetActive(false);
-        boundary.SetActive(true);
-    }
+    // public void closeGate()
+    // {
+    //     gateClose.SetActive(true);
+    //     gateOpen.SetActive(false);
+    //     boundary.SetActive(true);
+    // }
 
     private bool playerPassed = false;
     public void CheckFeathersCollected()
@@ -124,6 +124,7 @@ public class Maze : MonoBehaviour
             interactable.dialogue.sentences = new string[] { "You found all the feathers! Onwards!" };
             interactable.TriggerDialogue();
             playerPassed = true;
+            Destroy(this); // end of this scripts usefullness
         }
         else
         {
@@ -143,5 +144,7 @@ public class Maze : MonoBehaviour
         music.clip = song;
         music.Play();
         PlayerMovement.disabled = false;
+        yield return new WaitForSeconds(1f);
+        StoryManager.Instance.GameState = StoryManager.State.Maze;
     }
 }

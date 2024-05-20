@@ -8,9 +8,12 @@ public class ForestSearch : MonoBehaviour
     [SerializeField] private AudioSource sfx;
     [SerializeField] private AudioClip song;
 
+    [SerializeField] private GameObject boundary;
+
     public enum State
     {
         Uninitialized,
+        Start,
         FoundKey,
         FoundAnotherKey,
         End
@@ -32,6 +35,8 @@ public class ForestSearch : MonoBehaviour
         switch (GameState)
         {
             case State.Uninitialized:
+                break;
+            case State.Start:
                 break;
             case State.FoundKey:
                 break;
@@ -61,9 +66,16 @@ public class ForestSearch : MonoBehaviour
         }
     }
 
-    public void AddKey()
+    public void OnEnterForest()
     {
-        GameState = State.FoundKey;
-        CheckForStateChange();
+        if (GameState == State.Uninitialized)
+        {
+            StoryManager.Instance.GameState = StoryManager.State.ForestSearch;
+            GameState = State.Start;
+            boundary.SetActive(true);
+
+            music.clip = song;
+            music.Play();
+        }
     }
 }

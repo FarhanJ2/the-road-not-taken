@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject[] hearts;
     [SerializeField] private GameObject[] hungerIndicators;
     [SerializeField] private AudioSource music;
@@ -20,11 +21,13 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
     [SerializeField] private GameObject dialogueScreen;
+    [SerializeField] private GameObject levelScreen;
     [SerializeField] private GameObject bloodVignette;
 
     [Header("Animations")]
     [SerializeField] private Animator heartAnimator;
     [SerializeField] private Animator dialogueAnimator;
+    [SerializeField] private Animator levelAnimator;
 
     private void Awake()
     {
@@ -45,6 +48,8 @@ public class HUD : MonoBehaviour
 
         DialogueManager.onDialogueChange += UpdateDialogue;
         DialogueManager.onDialogueEnd += DisableDialogue;
+
+        StoryManager.onLevelChange += UpdateLevel;
     }
 
     private void OnDisable()
@@ -55,6 +60,8 @@ public class HUD : MonoBehaviour
 
         DialogueManager.onDialogueChange -= UpdateDialogue;
         DialogueManager.onDialogueEnd -= DisableDialogue;
+
+        StoryManager.onLevelChange -= UpdateLevel;
     }
 
     private void UpdateScore()
@@ -140,6 +147,20 @@ public class HUD : MonoBehaviour
                 hearts[i].GetComponent<Image>().color = new Color(255, 255, 255, alpha);
             }
         }
+    }
+
+    private void UpdateLevel(string levelName)
+    {
+        levelScreen.SetActive(true);
+        levelText.text = levelName;
+        levelAnimator.Play("SlideIn");
+        StartCoroutine(WaitForLevelAnim());
+    }
+
+    private IEnumerator WaitForLevelAnim()
+    {
+        yield return new WaitForSeconds(1.5f);
+        levelScreen.SetActive(false);
     }
 
     private void ToggleDeathScreen()

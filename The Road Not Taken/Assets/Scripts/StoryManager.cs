@@ -53,6 +53,9 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    public delegate void OnLevelChange(string levelName);
+    public static event OnLevelChange onLevelChange;
+
     public enum State
     {
         Start,
@@ -79,10 +82,13 @@ public class StoryManager : MonoBehaviour
         switch (GameState)
         {
             case State.Start:
+                onLevelChange?.Invoke("WELCOME TO THE GAME!");
                 break;
             case State.Maze:
+                onLevelChange?.Invoke("LEVEL ONE");
                 break;
             case State.ForestSearch:
+                onLevelChange?.Invoke("LEVEL TWO");
                 break;
             case State.FlightPath:
                 break;
@@ -97,7 +103,7 @@ public class StoryManager : MonoBehaviour
 
     public void StartGame()
     {
-        // Debug.Log("Game started!");
+        Debug.Log("Game started!");
         GameState = State.Start;
     }
 

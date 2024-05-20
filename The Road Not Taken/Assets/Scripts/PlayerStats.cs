@@ -45,11 +45,11 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Key down");
-            Heal(5);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Debug.Log("Key down");
+        //     Heal(5);
+        // }
     }
 
     private void Attack()

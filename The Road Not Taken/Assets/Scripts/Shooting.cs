@@ -48,7 +48,7 @@ public class Shooting : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
+            // Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.collider.GetComponent<Enemy>().TakeDamage(damage);

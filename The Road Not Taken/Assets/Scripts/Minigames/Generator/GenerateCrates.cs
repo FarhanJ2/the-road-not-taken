@@ -12,7 +12,7 @@ public class GenerateCrates : MonoBehaviour
 
     [SerializeField] private GameObject[] area = new GameObject[2];
     // Vector3[] occupied = new Vector3[numberOfCrates]; // add the size specifier before the variable's identifier
-    List<Vector3> occupied = new List<Vector3>();
+    private List<Vector3> occupied = new List<Vector3>();
 
     private void Start()
     {
@@ -64,6 +64,16 @@ public class GenerateCrates : MonoBehaviour
                 i--;
                 continue;
             }
+
+            // checks each crate before it to see if its the same position
+            for (int j = 0; j < i; j++)
+            {
+                if (occupied[j] == occupied[i])
+                {
+                    i--;
+                    break;
+                }
+            }
             crate.transform.position = occupied[i];
 
             // crate.transform.position = new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0);
@@ -80,7 +90,6 @@ public class GenerateCrates : MonoBehaviour
 
         for (int i = 0; i < cratesWithItem; i++)
         {
-            Debug.Log("Second loop");
             GameObject crate = Instantiate(crateModels[Random.Range(0, crateModels.Length)], generativeArea.transform) as GameObject;
             occupied.Add(new Vector3(Random.Range(area[0].transform.position.x, area[1].transform.position.x), Random.Range(area[0].transform.position.y, area[1].transform.position.y), 0));
             // this doesnt even work it has to loop throug the rest behind it to check iof its being occupied by another crate
@@ -89,6 +98,17 @@ public class GenerateCrates : MonoBehaviour
                 i--;
                 continue;
             }
+
+            // checks each crate before it to see if its the same position
+            // for (int j = 0; j < i; j++)
+            // {
+            //     if (occupied[j] == occupied[i])
+            //     {
+            //         i--;
+            //         break;
+            //     }
+            // }
+
             crate.transform.position = occupied[i];
             crate.GetComponent<Crate>().item = items[0];
 

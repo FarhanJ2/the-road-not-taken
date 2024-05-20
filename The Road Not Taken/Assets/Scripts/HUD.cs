@@ -28,6 +28,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private Animator heartAnimator;
     [SerializeField] private Animator dialogueAnimator;
     [SerializeField] private Animator levelAnimator;
+    private Color bloodVignetteColor;
 
     private void Awake()
     {
@@ -38,6 +39,10 @@ public class HUD : MonoBehaviour
     {
         // this is in start because the player stats are not initialized in awake
         heartAnimator.SetFloat("health", PlayerStats.Health); 
+    }
+    private void Update()
+    {
+        bloodVignette.GetComponent<Image>().color = Color.Lerp(bloodVignette.GetComponent<Image>().color, bloodVignetteColor, Time.deltaTime * 2f);
     }
 
     private void OnEnable()
@@ -120,7 +125,8 @@ public class HUD : MonoBehaviour
         }
 
         heartAnimator.SetFloat("health", PlayerStats.Health);
-        bloodVignette.GetComponent<Image>().color = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
+        bloodVignetteColor = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
+        // bloodVignette.GetComponent<Image>().color = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
         float healthPerHeart = PlayerStats.MAX_HEALTH / hearts.Length;
         for (int i = 0; i < hearts.Length; i++)
         {

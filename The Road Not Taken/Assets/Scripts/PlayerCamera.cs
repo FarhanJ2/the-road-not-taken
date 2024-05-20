@@ -32,7 +32,7 @@ public class PlayerCamera : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void FixeddUpdate()
+    private void FixedUpdate()
     {
         // transform.position = new Vector3(player.position.x, player.position.y, -10); old
 

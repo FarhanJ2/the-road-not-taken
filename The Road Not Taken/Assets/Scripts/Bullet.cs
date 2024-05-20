@@ -24,15 +24,23 @@ public class Bullet : MonoBehaviour
         if (col.gameObject.CompareTag("Enemy"))
         {
             Debug.Log(col);
-            col.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
-
+            // col.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
             Destroy(gameObject);
+            return;
         }
         else if (col.gameObject.CompareTag("Wall"))
             Destroy(gameObject);
         else if (col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<PlayerStats>().TakeDamage(Damage);
+            Destroy(gameObject);
         }
+        else if (col.gameObject.CompareTag("Crate"))
+        {
+            col.gameObject.GetComponent<Crate>().TakeDamage(Damage);
+            Destroy(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 }

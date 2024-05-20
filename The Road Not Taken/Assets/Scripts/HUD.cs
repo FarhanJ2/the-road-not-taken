@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,13 +7,28 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject[] hearts;
     [SerializeField] private GameObject[] hungerIndicators;
+    [SerializeField] private AudioSource music;
+    [SerializeField] private AudioClip song;
 
+    [Header("Dialogue UI")]
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text dialogueText;
+
+    [Header("Screens")]
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject scoreScreen;
+    [SerializeField] private GameObject dialogueScreen;
+    [SerializeField] private GameObject levelScreen;
+    [SerializeField] private GameObject bloodVignette;
 
+    [Header("Animations")]
     [SerializeField] private Animator heartAnimator;
+    [SerializeField] private Animator dialogueAnimator;
+    [SerializeField] private Animator levelAnimator;
+    private Color bloodVignetteColor;
 
     private void Awake()
     {
@@ -27,12 +40,21 @@ public class HUD : MonoBehaviour
         // this is in start because the player stats are not initialized in awake
         heartAnimator.SetFloat("health", PlayerStats.Health); 
     }
+    private void Update()
+    {
+        bloodVignette.GetComponent<Image>().color = Color.Lerp(bloodVignette.GetComponent<Image>().color, bloodVignetteColor, Time.deltaTime * 2f);
+    }
 
     private void OnEnable()
     {
         PlayerStats.onPlayerDamage += UpdateHealth;
         PlayerStats.onPlayerDeath += ToggleDeathScreen;
         PlayerStats.onScoreChange += UpdateScore;
+
+        DialogueManager.onDialogueChange += UpdateDialogue;
+        DialogueManager.onDialogueEnd += DisableDialogue;
+
+        StoryManager.onLevelChange += UpdateLevel;
     }
 
     private void OnDisable()
@@ -40,6 +62,11 @@ public class HUD : MonoBehaviour
         PlayerStats.onPlayerDamage -= UpdateHealth;
         PlayerStats.onPlayerDeath -= ToggleDeathScreen;
         PlayerStats.onScoreChange -= UpdateScore;
+
+        DialogueManager.onDialogueChange -= UpdateDialogue;
+        DialogueManager.onDialogueEnd -= DisableDialogue;
+
+        StoryManager.onLevelChange -= UpdateLevel;
     }
 
     private void UpdateScore()
@@ -47,9 +74,59 @@ public class HUD : MonoBehaviour
         scoreText.text = PlayerStats.Score.ToString();
     }
 
+    private void UpdateDialogue(string name, string dialogue)
+    {
+        dialogueScreen.SetActive(true);
+        dialogueAnimator.Play("SizeOut");
+        nameText.text = name;
+        
+        StopAllCoroutines();
+        StartCoroutine(WaitForChar(dialogue));
+    }
+
+    IEnumerator WaitForChar(string dialogue)
+    {
+        // for (int i = 0; i < dialogue.Length; i++)
+        // {
+        //     dialogueText.text += dialogue[i];
+        //     yield return new WaitForSeconds(0.1f);
+        // }
+
+        dialogueText.text = "";
+        foreach (char letter in dialogue.ToCharArray())
+        {
+            dialogueText.text += letter;
+            // yield return null; doesnt work???? why
+            yield return new WaitForSeconds(.05f);
+        }
+    }
+
+    private void DisableDialogue()
+    {
+        dialogueAnimator.Play("SizeIn");
+        StartCoroutine(WaitForAnim());
+    }
+
+    IEnumerator WaitForAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        dialogueScreen.SetActive(false);
+    }
+
     private void UpdateHealth()
     {
+        if (PlayerStats.Health <= 30)
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = song;
+                music.Play();
+            }
+        }
+
         heartAnimator.SetFloat("health", PlayerStats.Health);
+        bloodVignetteColor = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
+        // bloodVignette.GetComponent<Image>().color = new Color(255, 255, 255, .75f - (float)((float)PlayerStats.Health / (float)PlayerStats.MAX_HEALTH));
         float healthPerHeart = PlayerStats.MAX_HEALTH / hearts.Length;
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -84,6 +161,20 @@ public class HUD : MonoBehaviour
                 hearts[i].GetComponent<Image>().color = new Color(255, 255, 255, alpha);
             }
         }
+    }
+
+    private void UpdateLevel(string levelName)
+    {
+        levelScreen.SetActive(true);
+        levelText.text = levelName;
+        levelAnimator.Play("SlideIn");
+        StartCoroutine(WaitForLevelAnim());
+    }
+
+    private IEnumerator WaitForLevelAnim()
+    {
+        yield return new WaitForSeconds(1.5f);
+        levelScreen.SetActive(false);
     }
 
     private void ToggleDeathScreen()

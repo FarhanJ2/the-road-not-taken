@@ -32,6 +32,7 @@ public class StoryManager : MonoBehaviour
     private void Start()
     {
         LoadJson();
+        StartGame();
     }
 
     private void LoadJson()
@@ -42,8 +43,8 @@ public class StoryManager : MonoBehaviour
             PathDataList dataList = JsonUtility.FromJson<PathDataList>("{\"paths\":" + json + "}");
             foreach (PathData pathData in dataList.paths)
             {
-                Debug.Log("Path A: " + pathData.pathA);
-                Debug.Log("Path B: " + pathData.pathB);
+                // Debug.Log("Path A: " + pathData.pathA);
+                // Debug.Log("Path B: " + pathData.pathB);
             }
         }
         catch (Exception e)
@@ -52,9 +53,58 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    public delegate void OnLevelChange(string levelName);
+    public static event OnLevelChange onLevelChange;
+
+    public enum State
+    {
+        Start,
+        Maze,
+        ForestSearch,
+        FlightPath,
+        MusicPuzzle,
+        End
+    }
+
+    public State GameState
+    {
+        get { return gameState; } 
+        set
+        {
+            gameState = value;
+            Debug.Log("Game state changed to: " + value);
+            CheckForStateChange();
+        }
+    }
+
+    private void CheckForStateChange()
+    {
+        switch (GameState)
+        {
+            case State.Start:
+                onLevelChange?.Invoke("WELCOME TO THE GAME!");
+                break;
+            case State.Maze:
+                onLevelChange?.Invoke("LEVEL ONE");
+                break;
+            case State.ForestSearch:
+                onLevelChange?.Invoke("LEVEL TWO");
+                break;
+            case State.FlightPath:
+                break;
+            case State.MusicPuzzle:
+                break;
+            case State.End:
+                break;
+        }
+    }
+
+    private State gameState;
+
     public void StartGame()
     {
         Debug.Log("Game started!");
+        GameState = State.Start;
     }
 
     public void EndGame()

@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log("Player hit something");
         if (col.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Player hit a wall!");
+            // Debug.Log("Player hit a wall!");
 
             // calculate health penalty by speed of impact
             // calculate speed of impact

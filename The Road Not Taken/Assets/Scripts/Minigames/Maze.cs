@@ -78,9 +78,13 @@ public class Maze : MonoBehaviour
         switch (GameState)
         {
             case State.FeatherFive:
-                Interactable interactable = new Interactable();
-                interactable.dialogue = new Dialogue();
-                interactable.dialogue.sentences = new string[] { "You found all the feathers! The gate is open now!" };
+                Interactable interactable = new Interactable
+                {
+                    dialogue = new Dialogue
+                    {
+                        sentences = new string[] { "You found all the feathers! The gate is open now!" }
+                    }
+                };
                 interactable.TriggerDialogue();
                 gateClose.SetActive(false);
                 gateOpen.SetActive(true);
@@ -119,18 +123,26 @@ public class Maze : MonoBehaviour
         if (GameState == State.FeatherFive)
         {
             GameState = State.End;
-            Interactable interactable = new Interactable();
-            interactable.dialogue = new Dialogue();
-            interactable.dialogue.sentences = new string[] { "You found all the feathers! Onwards!" };
+            Interactable interactable = new Interactable
+            {
+                dialogue = new Dialogue
+                {
+                    sentences = new string[] { "You found all the feathers! Onwards!" }
+                }
+            };
             interactable.TriggerDialogue();
             playerPassed = true;
             Destroy(this); // end of this scripts usefullness
         }
         else
         {
-            Interactable interactable = new Interactable();
-            interactable.dialogue = new Dialogue();
-            interactable.dialogue.sentences = new string[] { "You need all feathers to pass. Currently you need " + (int)(State.FeatherFive - GameState) + " more!" };
+            Interactable interactable = new Interactable
+            {
+                dialogue = new Dialogue
+                {
+                    sentences = new string[] { "You need all feathers to pass. Currently you need " + (int)(State.FeatherFive - GameState) + " more!" }
+                }
+            };
             interactable.TriggerDialogue();
             Debug.Log("Only " + (int)(State.FeatherFive - GameState) + " more to find!");
             playerPassed = false;

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Key : Item
 {
-    private bool collected = false;
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.CompareTag("Player")) return;

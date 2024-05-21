@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
 {
     public static int Health { get; private set; }
     public static int Hunger { get; private set; }
-    public static int Score { get; set; }
+    public static int Score { get; private set; }
     public static int MAX_HEALTH = 100;
     public static int MAX_HUNGER = 30;
 
@@ -122,6 +122,11 @@ public class PlayerStats : MonoBehaviour
             deathGroan.Play();
 
         Time.timeScale = 0.5f;
+        if (Score > PlayerPrefs.GetInt("HighScore", 0))
+            PlayerPrefs.SetInt("HighScore", Score);
+        
+        Score = 0;
+        onScoreChange?.Invoke();
         onPlayerDeath?.Invoke();
     }
 
@@ -133,7 +138,6 @@ public class PlayerStats : MonoBehaviour
         Health = MAX_HEALTH;
         Hunger = MAX_HUNGER;
         onPlayerDamage?.Invoke(); // update health bar on reload
-        Score = 0;
         Time.timeScale = 1f;
 
         transform.position = PlayerMovement.spawnPoint;

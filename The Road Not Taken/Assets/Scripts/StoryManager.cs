@@ -93,6 +93,7 @@ public class StoryManager : MonoBehaviour
             case State.FlightPath:
                 break;
             case State.MusicPuzzle:
+                onLevelChange?.Invoke("LEVEL THREE");
                 break;
             case State.End:
                 break;

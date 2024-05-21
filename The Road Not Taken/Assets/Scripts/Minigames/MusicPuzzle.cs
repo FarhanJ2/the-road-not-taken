@@ -191,7 +191,7 @@ public class MusicPuzzle : MonoBehaviour
         float percentageCorrect = (float)correctCount / (float)sequence.Count;
         Debug.Log(percentageCorrect);
 
-        if (percentageCorrect >= 0.5)
+        if (percentageCorrect >= 0.65)
         {
             GameState = State.End;
             Debug.Log("Player Passed");

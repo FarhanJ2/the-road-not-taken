@@ -573,30 +573,17 @@ MonoBehaviour:
   healthBarCanvas: {fileID: 0}
   deathGroan: {fileID: 8549292336691357467}
   deathSounds:
-  - {fileID: 8300000, guid: b663df74f9a15ae4885628b0c26bab17, type: 3}
-  - {fileID: 8300000, guid: 8f5ab000a22dcfa43b155e4cba00e6bd, type: 3}
-  - {fileID: 8300000, guid: 031afb3e6a7e2fd488cb14df482dee4d, type: 3}
-  - {fileID: 8300000, guid: 1e830e3a4c2f05f48bbd12a4e74a590f, type: 3}
-  - {fileID: 8300000, guid: 36a2e31a3b8ea204da66d194d47de778, type: 3}
-  - {fileID: 8300000, guid: 2956f0e696ff5e243ba4757cac07f450, type: 3}
-  - {fileID: 8300000, guid: cc1e7978be224ad448ea91b7fe361fea, type: 3}
-  - {fileID: 8300000, guid: 8706556e7e5507e4eb3957165fa91909, type: 3}
-  - {fileID: 8300000, guid: 9c01c151224239b448a33d2bbfa82489, type: 3}
-  - {fileID: 8300000, guid: d7960d4da914a3340a035904e2a5ffb7, type: 3}
-  - {fileID: 8300000, guid: 333e0d11328326644bfe0791481f9c0f, type: 3}
-  - {fileID: 8300000, guid: 81bbdbb78a72e01428a7521fb363b87e, type: 3}
-  - {fileID: 8300000, guid: 8bcc5426d4d6b9d42b9cb2d4dec6f537, type: 3}
-  - {fileID: 8300000, guid: 557a38f70a18b84449bec8a0b5f3a428, type: 3}
-  - {fileID: 8300000, guid: 005b36625ecb5ed4ab7e1d8448338de2, type: 3}
-  - {fileID: 8300000, guid: 50e2ae6697c82b34f9fad07c95db169d, type: 3}
-  - {fileID: 8300000, guid: 5cfff6aa40c35ec48bd7a95d0c1276ce, type: 3}
-  - {fileID: 8300000, guid: f8e3f376930e14d4f86732609056bcbe, type: 3}
-  - {fileID: 8300000, guid: fb83d87867000b44eba3a148431260a4, type: 3}
-  - {fileID: 8300000, guid: b4a6ba1d502a68947bf665e7d6909413, type: 3}
-  - {fileID: 8300000, guid: 6f9640d0b252c2f43bc5fdc40c1ef63b, type: 3}
-  - {fileID: 8300000, guid: e79f0387c9568714ca5597b845cd31fb, type: 3}
-  - {fileID: 8300000, guid: ac285bce503a7eb4a92b799749c5148f, type: 3}
-  - {fileID: 8300000, guid: d9ce131f7317f6a46b5c61acbc5cda2a, type: 3}
+  - {fileID: 8300000, guid: a40dbf9f74482c040871f6391fa50e43, type: 3}
+  - {fileID: 8300000, guid: 0d085762472be8e4e9fca29bfe57b5cc, type: 3}
+  - {fileID: 8300000, guid: 8acde18e9ab31c44689bea4823d3c329, type: 3}
+  - {fileID: 8300000, guid: 3610db0191758de48ba3cbc75b25766c, type: 3}
+  - {fileID: 8300000, guid: 0773c4a6fc1fc6c4c80a24c33009d8e2, type: 3}
+  - {fileID: 8300000, guid: 118235c7d3b3ba445bb89da92acb9c2a, type: 3}
+  - {fileID: 8300000, guid: d2bda446e2d17e54496d82e39199b681, type: 3}
+  - {fileID: 8300000, guid: 054b1c1a30dd62c48af2545cdbd8a082, type: 3}
+  - {fileID: 8300000, guid: a7b65c52e1fd10543b645030d07edf10, type: 3}
+  - {fileID: 8300000, guid: 669479ae01fdc9e4986ade7c8ae17478, type: 3}
+  - {fileID: 8300000, guid: 14c50f7dabab45543ab3cce5a73c04e2, type: 3}
   fireSound: {fileID: 712490181415406925}
   fireSounds:
   - {fileID: 8300000, guid: ef73c1d31d98f434f97d1cf66c3d7bd9, type: 3}

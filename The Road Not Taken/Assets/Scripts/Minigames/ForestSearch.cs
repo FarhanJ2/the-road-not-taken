@@ -108,6 +108,14 @@ public class ForestSearch : MonoBehaviour
         {
             GameState = State.UsedKey;
             boundaryForward.SetActive(false);
+            Interactable interactable = new Interactable
+                {
+                    dialogue = new Dialogue
+                    {
+                        sentences = new string[] { "Amazing, I am so close to home!" }
+                    }
+                };
+                interactable.TriggerDialogue();
         }
     }
 }

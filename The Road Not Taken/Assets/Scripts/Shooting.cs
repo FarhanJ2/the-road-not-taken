@@ -77,7 +77,7 @@ public class Shooting : MonoBehaviour
         // Debug.Log("Attacking player at angle: " + angle);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
-        // Debug.Log("Quaternion: " + quaternion);
+        // Debug.Log("Quaternion: " + qudsaternion);
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 135f);
         Bullet pref = bullet.GetComponent<Bullet>();
         pref.Damage = damage;

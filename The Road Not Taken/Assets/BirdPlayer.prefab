@@ -109,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eab16d9823444f694c7d1eb133f235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flappingWings: {fileID: 8125200588350708438}
 --- !u!50 &2644888388740530505
 Rigidbody2D:
   serializedVersion: 4
@@ -5518,10 +5517,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 08de149854fc14bb48e33b0134bba994, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

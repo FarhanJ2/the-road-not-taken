@@ -63,20 +63,20 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    [SerializeField] private AudioSource flappingWings;
+    // [SerializeField] private AudioSource flappingWings;
     private void PlayerInput()
     {
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
         if (movement.sqrMagnitude > .01) // allows the idle animation to work as it ends with which way the player was facing
         {
-            flappingWings.Play();
+            // flappingWings.Play();
 
             animator.SetFloat("horizontal", movement.x);
             animator.SetFloat("vertical", movement.y);
             animator.SetFloat("speed", movement.sqrMagnitude); // gets sqaure magnitude of movement vector, length of movement vector squared
         } else {
-            flappingWings.Stop();
+            // flappingWings.Stop();
             animator.SetFloat("speed", movement.sqrMagnitude);
         }
     }

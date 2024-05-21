@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioSource deathGroan;
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private AudioClip[] hitSounds;
+    [SerializeField] private GameObject[] spawnPoints;
 
     // events out!!!
     public delegate void OnScoreChange();
@@ -140,7 +141,18 @@ public class PlayerStats : MonoBehaviour
         onPlayerDamage?.Invoke(); // update health bar on reload
         Time.timeScale = 1f;
 
-        transform.position = PlayerMovement.spawnPoint;
+        switch (StoryManager.Instance.GameState)
+        {
+            case StoryManager.State.ForestSearch:
+                transform.position = spawnPoints[0].transform.position;
+                break;
+            case StoryManager.State.MusicPuzzle:
+                transform.position = spawnPoints[1].transform.position;
+                break;
+            default:
+                transform.position = PlayerMovement.spawnPoint;
+                break;
+        }
     }
 
 }

@@ -160,7 +160,7 @@ public class MusicPuzzle : MonoBehaviour
 
     private void GenerateSequence()
     {
-        for (int i = 0; i < Random.Range(1, 3); i++)
+        for (int i = 0; i < Random.Range(2, 5); i++)
         {
             correctSequence.Add(Random.Range(0, pianoNotes.Length));
         }
@@ -195,6 +195,15 @@ public class MusicPuzzle : MonoBehaviour
         {
             GameState = State.End;
             Debug.Log("Player Passed");
+
+            Interactable interactable = new Interactable
+            {
+                dialogue = new Dialogue
+                {
+                    sentences = new string[] { "The gates opening!" }
+                }
+            };
+            interactable.TriggerDialogue();
         }
         else
         {

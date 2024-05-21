@@ -45,7 +45,7 @@ public class Crate : MonoBehaviour
     {
         Debug.Log("Crate broken");
 
-        if (Random.Range(0, 100) < 15 && !hasItem) // 20% chance of crate exploding
+        if (Random.Range(0, 100) < 15 && !hasItem) // 15% chance of crate exploding
         {
             destroySound.clip = destroySounds[Random.Range(1, destroySounds.Length)];
             destroySound.Play();

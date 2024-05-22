@@ -173,6 +173,8 @@ public class MusicPuzzle : MonoBehaviour
 
     private void GenerateSequence()
     {
+        correctSequence.Clear();
+
         for (int i = 0; i < Random.Range(2, 4); i++)
         {
             correctSequence.Add(Random.Range(0, pianoNotes.Length));

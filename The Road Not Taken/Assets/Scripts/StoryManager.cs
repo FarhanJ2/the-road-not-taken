@@ -96,6 +96,7 @@ public class StoryManager : MonoBehaviour
                 onLevelChange?.Invoke("LEVEL THREE");
                 break;
             case State.End:
+                onLevelChange?.Invoke("GAME OVER");
                 break;
         }
     }

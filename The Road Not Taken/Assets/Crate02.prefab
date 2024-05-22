@@ -42,7 +42,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d933ef925d79e8f48bd03ce797e564cd, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -372,5 +372,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c41f0c48baa130343980ebfd4eee6243, type: 3}
   - {fileID: 8300000, guid: fcfca19d89b0cb14f855948bc338d739, type: 3}
   hitSound: {fileID: 740625957061199831}
+  destroySounds:
+  - {fileID: 8300000, guid: d933ef925d79e8f48bd03ce797e564cd, type: 3}
+  - {fileID: 8300000, guid: 685efdddc06d6634dac1b7abe16c7445, type: 3}
+  - {fileID: 8300000, guid: 6579af3a43c72a345b924ba7c2991229, type: 3}
+  - {fileID: 8300000, guid: 2fcbc020312ad5f489af7d05892d87f4, type: 3}
+  - {fileID: 8300000, guid: 9cb330a025ee0594283e0df77567b942, type: 3}
+  - {fileID: 8300000, guid: 9b99e44db74af804e8da580fb596f94d, type: 3}
+  - {fileID: 8300000, guid: 1512b710e15990a40b961a8dd054f48c, type: 3}
+  - {fileID: 8300000, guid: 06b18842e6ae5274d9de401e3ed81483, type: 3}
   destroySound: {fileID: 4040560945463255890}
   health: 50

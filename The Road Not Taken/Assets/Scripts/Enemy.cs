@@ -26,11 +26,13 @@ public class Enemy : MonoBehaviour
     private float bulletLifetime = 2f;
     private float bulletForce = 20f;
     private bool disabled = false;
+    private Collider2D enemyCollider;
 
     private void Awake()
     {
         Health = maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        enemyCollider = GetComponent<Collider2D>();
         StartCoroutine(AttackSequence());
     }
 
@@ -41,10 +43,13 @@ public class Enemy : MonoBehaviour
         //     Debug.Log("Key down");
         //     Attack();
         // }
-        if (PlayerMovement.playerPos.x > transform.position.x) {
+        if (PlayerMovement.playerPos.x > transform.position.x)
+        {
             transform.rotation = Quaternion.Euler(0, 0, 0);
-        } else {
-             transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
@@ -52,24 +57,73 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            Attack();
+            if (IsPlayerVisible())
+            {
+                Attack();
+            }
             yield return new WaitForSeconds(.5f);
-            Attack();
+            if (IsPlayerVisible())
+            {
+                Attack();
+            }
             yield return new WaitForSeconds(.5f);
-            Attack();
+            if (IsPlayerVisible())
+            {
+                Attack();
+            }
             yield return new WaitForSeconds(.5f);
-            Attack();
+            if (IsPlayerVisible())
+            {
+                Attack();
+            }
             yield return new WaitForSeconds(.5f);
-            Attack();
+            if (IsPlayerVisible())
+            {
+                Attack();
+            }
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    private bool IsPlayerVisible()
+    {
+        Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(PlayerMovement.playerPos);
+
+        if (playerScreenPos.x > 0 && playerScreenPos.x < Screen.width && playerScreenPos.y > 0 && playerScreenPos.y < Screen.height)
+        {
+            Vector2 directionToPlayer = (Vector2)PlayerMovement.playerPos - (Vector2)transform.position;
+            float distanceToPlayer = directionToPlayer.magnitude;
+            directionToPlayer.Normalize();
+
+            // temporarily disable the enemy's collider
+            enemyCollider.enabled = false;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, distanceToPlayer);
+
+            // re-enable the enemy's collider
+            if (!disabled)
+                enemyCollider.enabled = true;
+
+            Debug.DrawRay(transform.position, directionToPlayer * distanceToPlayer, Color.red);
+
+            if (hit.collider != null)
+            {
+                // Debug.Log("Raycast hit: " + hit.collider.name);
+                if (hit.collider.CompareTag("Player"))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void Attack()
     {
         // attack player
         if (disabled) return;
-        
+
         fireSound.clip = fireSounds[Random.Range(0, fireSounds.Length)];
         fireSound.Play();
 
@@ -79,7 +133,7 @@ public class Enemy : MonoBehaviour
         firePoint.rotation = Quaternion.Euler(0, 0, angle);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(enemyCollider, bullet.GetComponent<Collider2D>());
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 135f);
         Bullet pref = bullet.GetComponent<Bullet>();
         pref.Damage = damage;
@@ -95,8 +149,8 @@ public class Enemy : MonoBehaviour
             return;
 
         // on sight, move towards player
-        
-        
+
+
     }
 
     public void TakeDamage(int damage)
@@ -119,14 +173,16 @@ public class Enemy : MonoBehaviour
         deathGroan.Play();
 
         // Destroy self for now until animation is created
-        
-        GetComponent<Collider2D>().enabled = false;
+
+        // GetComponent<Collider2D>().enabled = false;
+        enemyCollider.enabled = false;
         GetComponent<SpriteRenderer>().color = new Color(140, 0, 0, 1);
 
         // Destroy(gameObject, 3f);
     }
 
-    private void OnMouseEnter() {
+    private void OnMouseEnter()
+    {
         // show health bar
 
 
@@ -134,7 +190,8 @@ public class Enemy : MonoBehaviour
         Cursor.SetCursor(cursorCrosshair, Vector2.zero, cursorMode);
     }
 
-    private void OnMouseExit() {
+    private void OnMouseExit()
+    {
         // hide health bar
 
 

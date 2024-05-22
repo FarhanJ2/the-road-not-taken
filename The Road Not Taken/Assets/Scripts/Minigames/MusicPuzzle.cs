@@ -29,6 +29,7 @@ public class MusicPuzzle : MonoBehaviour
     }
 
     private State gameState = State.Uninitialized;
+
     public State GameState
     {
         get { return gameState; }
@@ -51,7 +52,8 @@ public class MusicPuzzle : MonoBehaviour
 
     private void StartSequence()
     {
-        if (GameState == State.Start || GameState == State.SoundOne || GameState == State.SoundTwo || GameState == State.SoundThree || GameState == State.SoundFour)
+        if (GameState == State.Start || GameState == State.SoundOne || GameState == State.SoundTwo ||
+            GameState == State.SoundThree || GameState == State.SoundFour)
         {
             GameState = State.SoundOne;
             GenerateSequence();
@@ -72,7 +74,15 @@ public class MusicPuzzle : MonoBehaviour
                 {
                     dialogue = new Dialogue
                     {
-                        sentences = new string[] { "In this challenege you will have to replicate a tone that will be played shortly", "Go on to each piano key to play the sound", "Be careful, you need a 50% or more to pass!", "Ready?" }
+                        sentences = new string[]
+                        {
+                            "This is the final step to achieve freedom",
+                            "In this puzzle you will have to listen to a series of notes and do your best to replicate it",
+                            "To replicate the sound, you will go over each piano key and replay the audio you have heard",
+                            "Be careful, each time you fail, you will take damage!",
+                            "You can always use the replay button if you missed a note",
+                            "Ready?"
+                        }
                     }
                 };
                 interactable.TriggerDialogue();
@@ -104,6 +114,7 @@ public class MusicPuzzle : MonoBehaviour
     // }
 
     private static MusicPuzzle instance;
+
     public static MusicPuzzle Instance
     {
         get
@@ -118,6 +129,7 @@ public class MusicPuzzle : MonoBehaviour
                     instance = obj.AddComponent<MusicPuzzle>();
                 }
             }
+
             return instance;
         }
     }
@@ -139,19 +151,20 @@ public class MusicPuzzle : MonoBehaviour
                 audioSource.volume = 0;
             }
 
-            yield return null; // Wait for the next frame
+            yield return null; // wait for the next frame
         }
 
         audioSource.Stop();
         audioSource.volume = startVolume;
-        Debug.Log("FadeOutMusic completed");
+        audioSource.enabled = false;
+        // Debug.Log("FadeOutMusic completed");
     }
 
     public void OnEnterMusicPuzzle()
     {
         if (GameState == State.Uninitialized)
         {
-            FadeOutMusic(music, 3f);
+            StartCoroutine(FadeOutMusic(music, 3f));
             StoryManager.Instance.GameState = StoryManager.State.MusicPuzzle;
             GameState = State.Start;
             boundary.SetActive(true);
@@ -160,10 +173,15 @@ public class MusicPuzzle : MonoBehaviour
 
     private void GenerateSequence()
     {
-        for (int i = 0; i < Random.Range(1, 3); i++)
+        for (int i = 0; i < Random.Range(2, 4); i++)
         {
             correctSequence.Add(Random.Range(0, pianoNotes.Length));
         }
+    }
+
+    public void ReplaySequence()
+    {
+        StartCoroutine(PlaySequence());
     }
 
     private IEnumerator PlaySequence()
@@ -178,6 +196,8 @@ public class MusicPuzzle : MonoBehaviour
 
     public void CheckPlayerSequence()
     {
+        if (GameState == State.End) return;
+        
         int correctCount = 0;
         int minLength = Mathf.Min(sequence.Count, correctSequence.Count);
         for (int i = 0; i < minLength; i++)
@@ -191,10 +211,19 @@ public class MusicPuzzle : MonoBehaviour
         float percentageCorrect = (float)correctCount / (float)sequence.Count;
         Debug.Log(percentageCorrect);
 
-        if (percentageCorrect >= 0.5)
+        if (percentageCorrect >= 0.65)
         {
             GameState = State.End;
             Debug.Log("Player Passed");
+
+            Interactable interactable = new Interactable
+            {
+                dialogue = new Dialogue
+                {
+                    sentences = new string[] { "The gates opening!", "I'm finally back home." }
+                }
+            };
+            interactable.TriggerDialogue();
         }
         else
         {
@@ -230,5 +259,10 @@ public class MusicPuzzle : MonoBehaviour
                 GameState = State.End;
                 break;
         }
+    }
+
+    public void EndGame()
+    {
+        StoryManager.Instance.GameState = StoryManager.State.End;
     }
 }

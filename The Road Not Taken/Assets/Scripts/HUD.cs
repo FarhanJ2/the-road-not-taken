@@ -14,7 +14,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private AudioClip song;
 
     [Header("Dialogue UI")]
-    [SerializeField] private TMP_Text nameText;
+    // [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text dialogueText;
 
     [Header("Screens")]
@@ -78,7 +78,7 @@ public class HUD : MonoBehaviour
     {
         dialogueScreen.SetActive(true);
         dialogueAnimator.Play("SizeOut");
-        nameText.text = name;
+        // nameText.text = name;
         
         StopAllCoroutines();
         StartCoroutine(WaitForChar(dialogue));
@@ -117,11 +117,14 @@ public class HUD : MonoBehaviour
     {
         if (PlayerStats.Health <= 30)
         {
-            if (!music.isPlaying)
-            {
-                music.clip = song;
-                music.Play();
-            }
+            // if (!music.isPlaying)
+            // {
+            //     music.clip = song;
+            //     music.Play();
+            // }
+
+            music.clip = song;
+            music.Play();
         }
 
         heartAnimator.SetFloat("health", PlayerStats.Health);

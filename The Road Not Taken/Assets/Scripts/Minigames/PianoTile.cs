@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PianoTile : MonoBehaviour
 {
-    // [SerializeField] private AudioSource pianoSound;
-    private AudioSource pianoSound;
     [SerializeField] private AudioClip pianoNote;
+    private AudioSource pianoSound;
 
     private void Awake()
     {
@@ -28,5 +23,13 @@ public class PianoTile : MonoBehaviour
         pianoSound.Play();
 
         MusicPuzzle.Instance.sequence.Add(NoteIndex());
+    }
+
+    public void GlowDuringTutorial()
+    {
+        GetComponent<SpriteRenderer>().color = Color.yellow;
+        // GetComponent<SpriteRenderer>().outline.enabled = true;
+        // GetComponent<SpriteRenderer>().outline.color = Color.black;
+        // GetComponent<SpriteRenderer>().outline.width = 0.1f;
     }
 }

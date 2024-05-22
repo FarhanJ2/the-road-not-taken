@@ -9,6 +9,7 @@ public class Crate : MonoBehaviour
     [SerializeField] private AudioSource hitSound;
     [SerializeField] private AudioClip[] destroySounds;
     [SerializeField] private AudioSource destroySound;
+    [SerializeField] private ParticleSystem explosion;
     [SerializeField] private int health;
     private bool hasItem = false;
     public int Health {get; private set; }
@@ -49,7 +50,7 @@ public class Crate : MonoBehaviour
         {
             destroySound.clip = destroySounds[Random.Range(1, destroySounds.Length)];
             destroySound.Play();
-            // PlayerStats playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+            explosion.Play();
             PlayerStats playerStats = FindObjectOfType<PlayerStats>();
             playerStats.TakeDamage(25);
             Destroy(gameObject, 2f);
@@ -65,6 +66,7 @@ public class Crate : MonoBehaviour
         }
 
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        PlayerStats.ChangeScore(5);
         destroySound.clip = destroySounds[0];
         destroySound.Play();
         Destroy(gameObject, 1.5f);

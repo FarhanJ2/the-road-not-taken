@@ -37,6 +37,7 @@ public class Bullet : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("Crate"))
         {
+            if (BulletType == BulletType.Enemy) return;
             col.gameObject.GetComponent<Crate>().TakeDamage(Damage);
             Destroy(gameObject);
         }

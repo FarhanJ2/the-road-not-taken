@@ -23,7 +23,7 @@ public class Crate : MonoBehaviour
     public void TakeDamage(int attackDamage)
     {
         // Debug.Log("Crate hit with " + attackDamage + " damage");
-
+        
         if (Health <= 0)
             return;
 

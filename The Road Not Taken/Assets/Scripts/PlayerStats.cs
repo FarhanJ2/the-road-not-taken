@@ -84,6 +84,9 @@ public class PlayerStats : MonoBehaviour
     {
         Score += scoreChange;
         onScoreChange?.Invoke();
+
+        if (Score > PlayerPrefs.GetInt("HighScore", 0))
+            PlayerPrefs.SetInt("HighScore", Score);
     }
 
     public void TakeDamage(int attackDamage)

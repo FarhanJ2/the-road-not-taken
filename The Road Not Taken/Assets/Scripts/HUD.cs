@@ -7,6 +7,8 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText2;
+    [SerializeField] private TMP_Text topScore;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject[] hearts;
     [SerializeField] private GameObject[] hungerIndicators;
@@ -19,6 +21,7 @@ public class HUD : MonoBehaviour
 
     [Header("Screens")]
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject scoreScreen;
     [SerializeField] private GameObject dialogueScreen;
     [SerializeField] private GameObject levelScreen;
@@ -38,7 +41,15 @@ public class HUD : MonoBehaviour
     private void Start()
     {
         // this is in start because the player stats are not initialized in awake
-        heartAnimator.SetFloat("health", PlayerStats.Health); 
+        heartAnimator.SetFloat("health", PlayerStats.Health);
+        Time.timeScale = 0;
+
+        for (int i = 0; i < hearts.Length; i++) {
+            hearts[i].SetActive(false);
+        }
+        for (int i = 0; i < hungerIndicators.Length; i++) {
+            hungerIndicators[i].SetActive(false);
+        }
     }
     private void Update()
     {
@@ -72,6 +83,8 @@ public class HUD : MonoBehaviour
     private void UpdateScore()
     {
         scoreText.text = PlayerStats.Score.ToString();
+        scoreText2.text = PlayerStats.Score.ToString();
+        // topScore.text = playerPrefs.GetInt("HighScore", 0);
     }
 
     private void UpdateDialogue(string name, string dialogue)
@@ -197,5 +210,17 @@ public class HUD : MonoBehaviour
     {
         deathScreen.SetActive(false);
         playerStats.Reload();
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        menuScreen.SetActive(false);
+        for (int i = 0; i < hearts.Length; i++) {
+            hearts[i].SetActive(true);
+        }
+        for (int i = 0; i < hungerIndicators.Length; i++) {
+            hungerIndicators[i].SetActive(true);
+        }
     }
 }

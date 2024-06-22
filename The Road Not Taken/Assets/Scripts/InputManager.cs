@@ -25,6 +25,6 @@ public class InputManager : MonoBehaviour
 
     private void OnDisable()
     {
-        playerControls.Disable();
+        // playerControls.Disable();
     }
 }

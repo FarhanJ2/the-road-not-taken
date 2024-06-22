@@ -6,6 +6,7 @@ public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences;
     private static DialogueManager instance;
+    private string currentId;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class DialogueManager : MonoBehaviour
     public delegate void OnDialogueChange(string name, string dialogue);
     public static event OnDialogueChange onDialogueChange;
 
-    public delegate void OnDialogueEnd();
+    public delegate void OnDialogueEnd(string id);
     public static event OnDialogueEnd onDialogueEnd;
 
     private void Awake()
@@ -55,6 +56,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Starting conversation with " + dialogue.name);
 
         currentName = dialogue.name;
+        currentId = dialogue.id;
         sentences.Clear();
 
         foreach (string sentence in dialogue.sentences)
@@ -81,6 +83,6 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         Debug.Log("End of conversation");
-        onDialogueEnd?.Invoke();
+        onDialogueEnd?.Invoke(currentId);
     }
 }

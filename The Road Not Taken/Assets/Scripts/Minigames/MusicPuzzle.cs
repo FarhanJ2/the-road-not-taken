@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MusicPuzzle : MonoBehaviour
@@ -13,14 +14,29 @@ public class MusicPuzzle : MonoBehaviour
 
     [SerializeField] private GameObject boundary;
     [SerializeField] private GameObject boundaryToExit;
+    [SerializeField] private PianoTile[] pianoTiles; 
 
     public List<int> sequence = new List<int>();
     private List<int> correctSequence = new List<int>();
+
+    private string dialogueId;
+    private bool isDialogueDone;
+    private bool IsDialogueDone
+    {
+        get
+        {
+            bool val = isDialogueDone;
+            isDialogueDone = false;
+            return val;
+        }
+        set => isDialogueDone = value;
+    }
 
     public enum State
     {
         Uninitialized,
         Start,
+        Tutorial,
         SoundOne,
         SoundTwo,
         SoundThree,
@@ -42,12 +58,17 @@ public class MusicPuzzle : MonoBehaviour
 
     private void OnEnable()
     {
-        DialogueManager.onDialogueEnd += StartSequence;
+        DialogueManager.onDialogueEnd += HandleDialogueEnd;
     }
 
     private void OnDisable()
     {
-        DialogueManager.onDialogueEnd -= StartSequence;
+        DialogueManager.onDialogueEnd -= HandleDialogueEnd;
+    }
+    private void HandleDialogueEnd(string id)
+    {
+        dialogueId = id;
+        IsDialogueDone = true;
     }
 
     private void StartSequence()
@@ -67,32 +88,15 @@ public class MusicPuzzle : MonoBehaviour
         {
             case State.Uninitialized:
                 break;
+            case State.Tutorial:
+                StartCoroutine(PianoTutorial());
+                break;
             case State.Start:
-                // PlayerMovement.disabled = true;
-                // StartCoroutine(PianoTutorial());
-                Interactable interactable = new Interactable
-                {
-                    dialogue = new Dialogue
-                    {
-                        sentences = new string[]
-                        {
-                            "This is the final step to achieve freedom",
-                            "In this puzzle you will have to listen to a series of notes and do your best to replicate it",
-                            "To replicate the sound, you will go over each piano key and replay the audio you have heard",
-                            "Be careful, each time you fail, you will take damage!",
-                            "You can always use the replay button if you missed a note",
-                            "Ready?"
-                        }
-                    }
-                };
-                interactable.TriggerDialogue();
+                StartSequence();
                 break;
             case State.SoundOne:
-                break;
             case State.SoundTwo:
-                break;
             case State.SoundThree:
-                break;
             case State.SoundFour:
                 break;
             case State.End:
@@ -101,17 +105,68 @@ public class MusicPuzzle : MonoBehaviour
         }
     }
 
-    // private IEnumerator PianoTutorial()
-    // {
-    //     Interactable interactable = new Interactable
-    //     {
-    //         dialogue = new Dialogue
-    //         {
-    //             sentences = new string[] { "" }
-    //         }
-    //     };
-    //     interactable.TriggerDialogue();
-    // }
+    private IEnumerator PianoTutorial()
+    {
+        Interactable interactable = new Interactable
+        {
+            dialogue = new Dialogue
+            {
+                id = "Tutorial Dialogue 1",
+                sentences = new string[]
+                {
+                    "This is the final step to achieve freedom",
+                    "In this puzzle you will have to listen to a series of notes and do your best to replicate it",
+                    "To replicate the sound, you will go over each piano key and replay the audio you have heard",
+                    "Here is a sample of what they sound like",
+                }
+            }
+        };
+        interactable.TriggerDialogue();
+
+        DialogueManager.onDialogueEnd += (id) =>
+        {
+            
+        };
+        
+        yield return new WaitUntil(() => IsDialogueDone && dialogueId == "Tutorial Dialogue 1");
+        Debug.Log("Testing");
+
+        for (int i = 0; i < pianoTiles.Length + 1; i++)
+        {
+            if (i == pianoTiles.Length)
+            {
+                pianoTiles[i - 1].ToggleHighlight();
+                break;
+            }
+            if (i != 0 )
+                pianoTiles[i - 1].ToggleHighlight();
+            Debug.Log("Playing Note" + i);
+            pianoTiles[i].ToggleHighlight();
+            pianoSound.clip = pianoNotes[i];
+            pianoSound.Play();
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return new WaitForSeconds(5f);
+        
+        Interactable interactable2 = new Interactable
+        {
+            dialogue = new Dialogue
+            {
+                id = "Tutorial Dialogue 2",
+                sentences = new string[]
+                {
+                    "Be careful, each time you fail, you will take damage!",
+                    "You can always use the replay button if you missed a note",
+                    "Ready?"
+                }
+            }
+        };
+        interactable2.TriggerDialogue();
+
+        yield return new WaitUntil(() => IsDialogueDone && dialogueId == "Tutorial Dialogue 2");
+        GameState = State.Start;
+    }
 
     private static MusicPuzzle instance;
 
@@ -124,8 +179,10 @@ public class MusicPuzzle : MonoBehaviour
                 instance = FindObjectOfType<MusicPuzzle>();
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject();
-                    obj.name = "MusicPuzzle";
+                    GameObject obj = new GameObject
+                    {
+                        name = "MusicPuzzle"
+                    };
                     instance = obj.AddComponent<MusicPuzzle>();
                 }
             }
@@ -134,16 +191,16 @@ public class MusicPuzzle : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOutMusic(AudioSource audioSource, float FadeTime)
+    private IEnumerator FadeOutMusic(AudioSource audioSource, float fadeTime)
     {
-        Debug.Log("FadeOutMusic started");
+        // Debug.Log("FadeOutMusic started");
         float startVolume = audioSource.volume;
 
         while (audioSource.volume > 0)
         {
             // Decrease volume proportional to the elapsed time
-            audioSource.volume -= startVolume * (Time.deltaTime / FadeTime);
-            Debug.Log("Volume: " + audioSource.volume);
+            audioSource.volume -= startVolume * (Time.deltaTime / fadeTime);
+            // Debug.Log("Volume: " + audioSource.volume);
 
             // Ensure volume does not go below zero
             if (audioSource.volume < 0)
@@ -166,7 +223,7 @@ public class MusicPuzzle : MonoBehaviour
         {
             StartCoroutine(FadeOutMusic(music, 3f));
             StoryManager.Instance.GameState = StoryManager.State.MusicPuzzle;
-            GameState = State.Start;
+            GameState = State.Tutorial;
             boundary.SetActive(true);
         }
     }
@@ -194,6 +251,10 @@ public class MusicPuzzle : MonoBehaviour
             pianoSound.Play();
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public void ResetSequence() {
+        sequence.Clear();
     }
 
     public void CheckPlayerSequence()

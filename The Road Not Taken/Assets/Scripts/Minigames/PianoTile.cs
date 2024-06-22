@@ -3,6 +3,7 @@ using UnityEngine;
 public class PianoTile : MonoBehaviour
 {
     [SerializeField] private AudioClip pianoNote;
+    [SerializeField] private GameObject highlight;
     private AudioSource pianoSound;
 
     private void Awake()
@@ -10,6 +11,7 @@ public class PianoTile : MonoBehaviour
         gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         gameObject.AddComponent<BoxCollider2D>().isTrigger = true;
         pianoSound = gameObject.AddComponent<AudioSource>();
+        highlight.SetActive(false);
     }
 
     private int NoteIndex()
@@ -25,11 +27,8 @@ public class PianoTile : MonoBehaviour
         MusicPuzzle.Instance.sequence.Add(NoteIndex());
     }
 
-    public void GlowDuringTutorial()
+    public void ToggleHighlight()
     {
-        GetComponent<SpriteRenderer>().color = Color.yellow;
-        // GetComponent<SpriteRenderer>().outline.enabled = true;
-        // GetComponent<SpriteRenderer>().outline.color = Color.black;
-        // GetComponent<SpriteRenderer>().outline.width = 0.1f;
+        highlight.SetActive(!highlight.activeSelf);
     }
 }

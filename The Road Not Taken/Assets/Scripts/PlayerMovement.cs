@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     public static Vector3 deathPos;
-    public static Vector3 spawnPoint;
     private new Transform transform;
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
 
-        transform.position = spawnPoint;
+        // transform.position = spawnPoint;
     }
 
     private void OnEnable()

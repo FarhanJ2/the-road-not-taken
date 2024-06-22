@@ -114,7 +114,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    private void DisableDialogue()
+    private void DisableDialogue(string id)
     {
         dialogueAnimator.Play("SizeIn");
         StartCoroutine(WaitForAnim());

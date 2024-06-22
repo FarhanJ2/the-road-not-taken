@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Ally
   - Crate
+  - PianoTile
   layers:
   - Default
   - TransparentFX

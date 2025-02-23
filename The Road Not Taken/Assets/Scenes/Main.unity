@@ -1589,7 +1589,14 @@ PrefabInstance:
       propertyPath: pianoNote
       value: 
       objectReference: {fileID: 8300000, guid: a3a9fa8aba80b49a381cf83d72fdc0cc, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad,
+        type: 3}
+      propertyPath: sourceCamera
+      value: 
+      objectReference: {fileID: 1980912116}
+    m_RemovedComponents:
+    - {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
+    - {fileID: 456378230139166977, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3336,7 +3343,7 @@ PrefabInstance:
     - target: {fileID: 3009622808120559379, guid: 4a399df720f925d429a2f445440da7a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3485,7 +3492,14 @@ PrefabInstance:
       propertyPath: pianoNote
       value: 
       objectReference: {fileID: 8300000, guid: cd9dd4f7408654c9697931cbf32771af, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad,
+        type: 3}
+      propertyPath: sourceCamera
+      value: 
+      objectReference: {fileID: 1980912116}
+    m_RemovedComponents:
+    - {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
+    - {fileID: 456378230139166977, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3564,7 +3578,14 @@ PrefabInstance:
       propertyPath: pianoNote
       value: 
       objectReference: {fileID: 8300000, guid: e3acbeba9fbb64b33a66b28a78491e89, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad,
+        type: 3}
+      propertyPath: sourceCamera
+      value: 
+      objectReference: {fileID: 1980912116}
+    m_RemovedComponents:
+    - {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
+    - {fileID: 456378230139166977, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6636,7 +6657,7 @@ PrefabInstance:
     - target: {fileID: 3009622808120559379, guid: 4a399df720f925d429a2f445440da7a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28493,7 +28514,7 @@ PrefabInstance:
     - target: {fileID: 3009622808120559379, guid: 4a399df720f925d429a2f445440da7a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31380,7 +31401,14 @@ PrefabInstance:
       propertyPath: pianoNote
       value: 
       objectReference: {fileID: 8300000, guid: 5980b4500790c4c8d91ac0ee299fbcd5, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad,
+        type: 3}
+      propertyPath: sourceCamera
+      value: 
+      objectReference: {fileID: 1980912116}
+    m_RemovedComponents:
+    - {fileID: 9192762974870226010, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
+    - {fileID: 456378230139166977, guid: 8a670af7ea6b048b89e5d8ef7845adad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -123395,7 +123423,7 @@ PrefabInstance:
     - target: {fileID: 3009622808120559379, guid: 4a399df720f925d429a2f445440da7a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -129129,7 +129157,7 @@ Transform:
   m_GameObject: {fileID: 2053260126}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.08, y: -10.08, z: 0}
+  m_LocalPosition: {x: -1.44, y: -10.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

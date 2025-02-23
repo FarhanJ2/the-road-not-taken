@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class PianoTile : MonoBehaviour
 {
     [SerializeField] private AudioClip pianoNote;
+    [SerializeField] private GameObject outline;
     private AudioSource pianoSound;
 
     private void Awake()
@@ -27,9 +29,12 @@ public class PianoTile : MonoBehaviour
 
     public void GlowDuringTutorial()
     {
-        GetComponent<SpriteRenderer>().color = Color.yellow;
-        // GetComponent<SpriteRenderer>().outline.enabled = true;
-        // GetComponent<SpriteRenderer>().outline.color = Color.black;
-        // GetComponent<SpriteRenderer>().outline.width = 0.1f;
+        StartCoroutine(Glowing());
+    }
+
+    IEnumerator Glowing()
+    {
+        outline.SetActive(true);
+        yield return new WaitForSeconds(.5f);
     }
 }
